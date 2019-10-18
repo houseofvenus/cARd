@@ -5,3 +5,208 @@
     padding: 0;
     font-family: "Archivo", sans-serif;
 }
+
+#profile-page-container{
+  background-color: yellow;
+}
+
+.banner-container{
+  min-height: 100px;
+  margin: 0 auto;
+}
+
+#profile-photo-image-container{
+  border-radius: 50%;
+  background-color: black;
+  color: white;
+  margin: 5% auto;
+}
+
+.portal-button-container{
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: red;
+  color: white;
+  display: inline-block;
+}
+
+#settings-options-container{
+  width: 100%;
+  min-height: 250px;
+}
+
+.option-button-container{
+  width: 100%;
+  height: 30%;
+  font-size: 30px;
+  text-align: center;
+  line-height: 75px;
+  margin: 2% auto;
+  background-color: rgba(255, 255, 255, 1.0);
+  border: 2px black solid;
+}
+
+
+#profile-manager-page-container{
+  background-color: aquamarine;
+}
+
+.settings-container{
+  vertical-align: top;
+}
+
+.icon-settings-component{
+  border-radius: 50%;
+  display: inline-block;
+  background-color: blue;
+}
+
+.first-metric-component, .second-metric-component{
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  display: inline-block;
+  text-align: center;
+}
+
+.edit-settings-button-component{
+  border-radius: 50%;
+  text-align: center;
+  border: 2px black solid;
+  display: inline-block;
+}
+
+#user-life-stream-container{
+  background-color: violet;
+  min-width: 350px;
+  min-height: 350px;
+}
+
+@media only screen and (max-width: 640px){
+  #profile-page-container{
+    width: 100%;
+    height: 100%;
+  }
+
+  #profile-photo-image-container{
+    width: 300px;
+    height: 300px;
+  }
+
+  .banner-container{
+    height: 10%;
+    width: 250px;
+  }
+
+  .portal-button-container{
+    width: 50px;
+    height: 50px;
+    margin: 5px 2%;
+  }
+
+  #settings-options-container{
+    height: 40%;
+  }
+
+  #profile-manager-page-container{
+    width: 100%;
+    height: 100%;
+  }
+
+  .settings-container{
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .icon-settings-component{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 5%;
+  }
+
+  .first-metric-component, .second-metric-component{
+    vertical-align: top;
+    width: 15%;
+    height: 5%;
+    min-height: 50px;
+    line-height: 50px;
+    min-width: 100px;
+    margin: 1% 2%;
+  }
+
+  .edit-settings-button-component{
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+  }
+
+  #user-life-stream-container{
+    width: 100%;
+    height: 40%;
+  }
+}
+
+@media only screen and (min-width: 640px){
+  #profile-page-container{
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  #profile-photo-image-container{
+    width: 250px;
+    height: 250px;
+  }
+
+  .banner-container{
+    height: 100px;
+    width: 100%;
+  }
+
+  .portal-button-container{
+    margin: 5px 5%;
+  }
+
+  #settings-options-container{
+    height: 250px;
+  }
+
+  #profile-manager-page-container{
+    width: 550px;
+    margin: 0 auto;
+  }
+
+  .settings-container{
+    width: 530px;
+    margin: 1% auto;
+  }
+
+  .icon-settings-component{
+    width: 75px;
+    height: 75px;
+    line-height: 75px;
+    margin-left: 10px;
+    text-align: center;
+  }
+
+  .first-metric-component, .second-metric-component{
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    margin: 1% 15px;
+  }
+
+  .edit-settings-button-component{
+    width: 75px;
+    height: 75px;
+    line-height: 75px;
+  }
+
+  #user-life-stream-container{
+    width: 350px;
+    height: 350px;
+    margin: 2% auto;
+  }
+
+}

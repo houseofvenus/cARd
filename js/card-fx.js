@@ -1,152 +1,153 @@
-function splitScreen(){
 
-   /*
-                        *   splits the screen to allow for multiple "desktops",
-                        *   i.e. connect to various cARds locally by tapping or
-                        *   remotely via pARk broadcast
-                        */
-//new screen creation step
-    let nextView = document.createElement("video");
-    nextView.setAttribute("id", `webcam-${viewerTracker.length}-container`);
-    nextView.classList.add(`viewer-container`);
-
-//add the new screen to the list of sceens
-    viewerTracker.push(nextView);
-    console.log(viewerTracker);
-    console.log("-------------------------------------------------");
-    let topMult = 0;
-
-    //for each item in the list update the margins and positioning
-    for(var i=0; i<viewerTracker.length; i++){
+function processChildren(secondary){
+    let children = secondary;
+  //  console.log("processing children...");
+    //console.log(children);
+    for(var j=0; j<children.length; j++){
         (function(){
-            let videoContainer = viewerTracker[i];
-            console.log(viewerTracker[i]);
-            if(viewerTracker.length>3){
+            let currentChild = children[j];
 
-                if(i>0){
-                    let mult = i % 3;
-                    videoContainer.style.left = (mult*viewerContainerSeries[2].width)+"px";
-                    if(mult==0){
-                        topMult++;
+            if(currentChild.name!="multiple"){
+                if(currentChild.parent.length==0&&currentChild.children.length==0){ //  objects without any child objects and whose sole parent is the base environment
+                    let base = Experience.environment[0];
+                    let childElement = currentChild.element();
+                    childElement.textContent = currentChild.content();
+
+                    if(currentChild.type=="button-container"){
+                        childElement.addEventListener(Experience.effector[0].event, function(){
+                            let childSelf = this;
+                            Experience.effector[0].fx(childSelf.getAttribute("id"));
+                        });
+                    }
+
+                    document.getElementById(base.id()).appendChild(childElement);
+
+                }
+
+                if(currentChild.parent.length>0){ //  special cases of the same situation below [see comment in line 564]
+                    for(var l = 0; l<currentChild.parent.length; l++){
+                        (function(){
+                            let parentObject = Experience.objectsubject[currentChild.parent[l]];
+                            let childElement = currentChild.element(parentObject.name);
+                            let tapin = false;
+
+                            if(currentChild.type=="blurb-container"){
+                              childElement.textContent = "";
+                              tapin = true;
+
+                            }
+                            else if(currentChild.type=="experience-element-container"){
+                                console.log(currentChild.id());
+                            }
+                            else if(currentChild.type=="instructions-container"){ //DRAFT: make a function that adds specific builders for particular types defined by the user or a developer
+                                childElement.innerHTML = currentChild.content(parentObject.name);
+                            }
+                            else{
+                              childElement.textContent = currentChild.content(parentObject.name);
+                                //console.log(childElement);
+
+                            }
+
+                            //console.log(`#${currentChild.id(parentObject.name)}`);
+                            if(currentChild.type=="button-container"){
+                                childElement.addEventListener(Experience.effector[0].event, function(){
+                                    let childSelf = this;
+                                    Experience.effector[0].fx(childSelf.getAttribute("id"));
+                                });
+                            }
+
+                            document.getElementById(parentObject.id()).appendChild(childElement);
+                            if(currentChild.name=="rocket-body"){
+                                var groupObject3D = document.querySelector('a-entity').object3D;
+                                console.log(groupObject3D.parent);
+                                console.log(groupObject3D.children);
+                              //document.querySelector(`#${currentChild.id()}`).setAttribute("id", currentChild.id());
+                               //document.querySelector(`#${currentChild.id()}`).setAttribute("obj-model", "obj: #rocket-obj; mtl: #rocket-mtl");
+                               //document.querySelector(`#${currentChild.id()}`).object3D.scale.set(0.1, 0.1, 0.1);
+                              //document.querySelector(`#${currentChild.id()}`).object3D.position.set(currentChild.posX, currentChild.posY, currentChild.posZ);
+                            }
+                            if(tapin){
+                                document.getElementById(currentChild.id()).innerHTML = currentChild.content();
+                            }
+                        })();
                     }
                 }
-                else{
-                    viewerContainerSeries[2].marginLeft = 0;
-                    videoContainer.style.left = viewerContainerSeries[2].left;
-                }
-                console.log(topMult);
-                videoContainer.style.top = (topMult*viewerContainerSeries[2].height)+"px";
-                //videoContainer.style.top = viewerContainerSeries[2].top;
-                videoContainer.style.marginTop = viewerContainerSeries[2].marginTop;
-                videoContainer.style.marginLeft = viewerContainerSeries[2].marginLeft+"px";
 
-                videoContainer.setAttribute("width", viewerContainerSeries[2].width);
-                videoContainer.style.width = viewerContainerSeries[2].width+"px";
-                videoContainer.setAttribute("height",viewerContainerSeries[2].height);
-                videoContainer.style.height = viewerContainerSeries[2].height+"px";
             }
-            else{
-                let count = viewerTracker.length-1;
-                if(i>0){
-                    videoContainer.style.top = (i*viewerContainerSeries[count].height)+"px";
-                }
-                else{
-                    videoContainer.style.top = viewerContainerSeries[count].top;
-                }
-                videoContainer.style.marginTop = viewerContainerSeries[count].marginTop;
-                videoContainer.style.marginLeft = viewerContainerSeries[count].marginLeft+"px";
-                videoContainer.setAttribute("width", viewerContainerSeries[count].width);
-                videoContainer.style.width = viewerContainerSeries[count].width+"px";
-                videoContainer.setAttribute("height", viewerContainerSeries[count].height);
-                videoContainer.style.height = viewerContainerSeries[count].height+"px";
-            }
+            else{ // if the object has multiple parents, i.e. it is a resource or characterisatic shared by other objects
+                let parents = currentChild.parent;
+                for(var k = 0; k<parents.length; k++){
+                    (function(){
+                        let parentObject = Experience.objectsubject[parents[k]];
+                        let childElement = currentChild.element(parentObject.name);
+                        let childContentBody = currentChild.content(parentObject.name);
+                        if(typeof(childContentBody)=="str"){
+                            childElement.textContent = currentChild.content(parentObject.name);
+                        }
+                        else{
+                      //      console.log("domelement");
+                            childElement.textContent = currentChild.content(parentObject.name);
+                        }
+                      //  console.log(`#${currentChild.id(parentObject.name)}`);
+                        if(currentChild.type=="button-container"){
+                            childElement.addEventListener(Experience.effector[0].event, function(){
+                                let childSelf = this;
+                                Experience.effector[0].fx(childSelf.getAttribute("id"));
+                            });
+                        }
 
-            document.getElementById("main-app-container").appendChild(videoContainer);
+                        document.getElementById(parentObject.id()).appendChild(childElement);
+
+                    })();
+                }
+
+
+            }
         })();
     }
-
+    //toggleMenuVisibility();
+    //switchToPage(pageInFocus);
 }
 
-function showLinkStatusDisplay(code){
-    let type = code;
-    let linkStatusDisplay, linkStatusDisplayBar, linkStatusDisplayBarContainer, linkStatusDisplayTitle, linkStatusDisplayContent;
-    if(sessionManager.statusShown){
-        console.log("dom elements for link status display already created");
-        linkStatusDisplay = document.getElementById("link-status-display-container");
-        linkStatusDisplayTitle = document.getElementById("link-status-display-title-container");
-        linkStatusDisplayBar = document.getElementById("link-status-display-bar");
-        linkStatusDisplayBarContainer = document.getElementById("link-status-display-bar-container");
-        linkStatusDisplayContent = document.getElementById("link-status-display-content-container");
-    }
-    else{
-        linkStatusDisplay = document.createElement("div");
-        linkStatusDisplayTitle = document.createElement("div");
-        linkStatusDisplayBar = document.createElement("div");
-        linkStatusDisplayBarContainer = document.createElement("div");
-        linkStatusDisplayContent = document.createElement("div");
-        linkStatusDisplay.setAttribute("id","link-status-display-container");
-        linkStatusDisplayTitle.setAttribute("id","link-status-display-title-container");
-        linkStatusDisplayBarContainer.setAttribute("id","link-status-display-bar-container");
-        linkStatusDisplayContent.setAttribute("id","link-status-display-content-container");
-        linkStatusDisplayBar.setAttribute("id","link-status-display-bar");
-    }
-    linkStatusDisplayBar.style.width = 0;
-    /*    while (myNode.firstChild) {
-        myNode.removeChild(myNode.firstChild);
-    }
-    */
-    if(type==0){
-            console.log("hahaha");
-            linkStatusDisplayTitle.innerHTML = "Connect"
-            linkStatusDisplayContent.innerHTML = "<p style='width: 80%; margin: 0 auto; display: block; padding-top: 5%; text-align: center;'> Opening this <span style='font-weight:900;'>cARd</span> and loading its Lyoko Ledgerspace Token...</p>";
-    }
-    else if(type==1){
-          console.log("oooooo");
-          linkStatusDisplayTitle.innerHTML= "Link"
-          linkStatusDisplayContent.innerHTML = "<p style='width: 70%; margin: 0 auto; text-align: center; padding-top: 5%;'> Linking this session to another <span style='font-weight:900;'>cARd</span>...</p>";
-    }
-    else{
-        linkStatusDisplayTitle.textContent = "Link Status Display"
-        linkStatusDisplayContent.innerHTML = "<p> text will go here </p>";
-        console.log("no code provided");
+function buildExperience(){
+    console.log(Experience);
+
+    if(Experience.environment[0]!=null){
+        document.body.appendChild(Experience.environment[0].element());
     }
 
-    if(sessionManager.statusShown){
-        linkStatusDisplay.style.display = "block"
+    if(Experience.objectsubject!=null){
+        let objectSubjects = Experience.objectsubject;
+        osPointers = Object.keys(objectSubjects);
+        let secondary = []; // the secondary child objects, ie the children of the primary objects in the relationship tree
+
+        for(var i=0; i<osPointers.length; i++){
+            let currentAddition = objectSubjects[osPointers[i]];
+            if(currentAddition.children.length>0&&currentAddition.parent.length==0){
+                let main = Experience.environment[0].id();
+                let childElement = currentAddition.element();
+                if(currentAddition.type=="button-container"){
+                    childElement.addEventListener(Experience.effector[0].event, function(){
+                        let childSelf = this;
+                        Experience.effector[0].fx(childSelf.getAttribute("id"));
+                    });
+                }
+              //  console.log(childElement);
+                document.getElementById(main).appendChild(childElement);
+            }
+            else{
+                secondary.push(currentAddition);
+            }
+        }
+
+        processChildren(secondary);
     }
-    else{
-        linkStatusDisplayBarContainer.appendChild(linkStatusDisplayBar);
-        linkStatusDisplay.appendChild(linkStatusDisplayTitle);
-        linkStatusDisplay.appendChild(linkStatusDisplayBarContainer);
-        linkStatusDisplay.appendChild(linkStatusDisplayContent);
-
-        document.getElementById("main-app-container").appendChild(linkStatusDisplay);
-    }
-    setTimeout(function(){
-        linkStatusDisplayBar.style.width = "100%";
-    }, 50);
-
-    setTimeout(function(){
-        linkStatusDisplay.style.display = "none";
-        sessionManager.statusShown = true;
-    }, 3100);
-    //}
-
 }
 
-function activateDeviceNFCReader(connection, target){
-    let conn = connection;
-    let title = target;
-    conn.emit("checkForNodeOnNetwork", {status: true, name: title});
-}
-
-function connectToRFID(socket, object){
-    let connection = socket;
-    let target = object;
-    activateDeviceNFCReader(connection, target);
-    opencARd(0);
-}
-
-function opencARd(code){
-    showLinkStatusDisplay(code);
+function connectNodeToNetwork(){
+    sessionManager = {
+        connection: io.connect(location.host),
+        network: "pARk"
+    };
+    sessionManager.connection.emit("identifyNodeAsViewer", {status: true});
 }
