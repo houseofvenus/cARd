@@ -2,7 +2,7 @@
 var cluster = require('cluster');
 
 // Code to run if we're in the master process
-/**/
+/*
 
 if (cluster.isMaster) {
 
@@ -270,5 +270,5 @@ else {/**/
       });
   });
 
-}
-/**/
+/*}
+*/

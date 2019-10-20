@@ -274,7 +274,6 @@ body, html{
   padding: 5%;
   color: white;
   font-size: 24px;
-  width: 36%;
   height: 45%;
   min-width: 150px;
   min-height: 300px;
@@ -324,12 +323,12 @@ body, html{
 
 @media only screen and (min-width: 640px){
   .preview-container{
+    width: 36%;
     margin: 1%;
   }
 
   .preview-container:hover{
     width: 80%;
-
     border: 5px white solid;
   }
 
@@ -417,9 +416,8 @@ body, html{
 
 @media only screen and (max-width: 640px){
 
-  .preview-container:hover{
-    width: 100%;
-
+  .preview-container{ /*:hover*/
+    width: 90%;
     border: 0;
   }
   #header-banner-container{
@@ -451,9 +449,9 @@ body, html{
   }
 
   #app-menu-button-container{
-      width: 100px;
-      height: 100px;
-      line-height: 100px;
+      width: 75px;
+      height: 75px;
+      line-height: 75px;
       right: 2%;
       top: 11%;
   }
@@ -464,7 +462,8 @@ body, html{
   }
 
   #solAR-preview-container{
-    background-size: auto 100%;
+    background-size: auto 120%;
+    background-color: black;
   }
 
   #tap-to-open-selection-selection-component-container{
