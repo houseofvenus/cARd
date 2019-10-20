@@ -90,6 +90,21 @@ else {*/
       res.render('index.html',{root: dir[0]});
   });
 
+  app.get('/login', function(req, res){
+      var result = new WhichBrowser(req.headers);
+      console.log(result.toString());
+      if(result.isType('desktop')){
+          console.log('This is a desktop computer.');
+          deviceType = 'desktop';
+      }
+      else{
+          console.log('This is a mobile device.');
+          deviceType = 'mobile';
+      }
+
+      res.render('login.html',{root: dir[0]});
+  });
+
   app.get('/ceo', function(req, res){
       var result = new WhichBrowser(req.headers);
       console.log(result.toString());
@@ -252,7 +267,9 @@ else {*/
       // client sockets
       socket.on("CLIENTidentifyNodeAsViewerSERVER", function(data){
           if(data.status){
-              console.log(`node connected to network...`);
+              console.log(`node connected to network ${data.network}`);
+              console.log(`checking out DIA ${data.dia}`);
+              console.log(`loading content...\n ${data.content}`);
               socket.emit("SERVERnodeIdentifiedCLIENT", {status: true});
           }
       });
