@@ -428,7 +428,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "set";
+              return "edit";
           },
           index: 16,
           children: [],
@@ -552,7 +552,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "set";
+              return "edit";
           },
           index: 21,
           children: [],
@@ -676,7 +676,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "set";
+              return "edit";
           },
           index: 26,
           children: [],
@@ -800,7 +800,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "set";
+              return "edit";
           },
           index: 31,
           children: [],
@@ -1910,6 +1910,9 @@ var Experience = {
                   break;
                   case "whatsapp-portal-button-container":
                       console.log("no default setting \n server result ! whatsapp");
+                  break;
+                  case "link-to-hov-portal-button-container":
+                      window.open("http://houseofven.us","_blank");
                   break;
                   default:
                       console.log("no specific functionality defined for this target.");

@@ -141,7 +141,7 @@
   color: white;
   border-bottom: 2px white solid;
   padding-bottom: 5%;
-  font-size: 44px;
+  font-size: 40px;
 }
 
 .settings-manager-container{
@@ -195,14 +195,14 @@
 }
 
 #augr-preview-container{
-    background-image: url("../media/img/augr.gif");
+    background-image: url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/augr.gif");/*../media/img/augr.gif");*/
     background-size: auto 100%;
     background-position: center center;
     background-repeat: no-repeat;
 }
 
 #shoppAIR-preview-container{
-    background-image: url("../media/img/shoppAIR.gif");
+    background-image: url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/shoppAIR.gif");/*../media/img/shoppAIR.gif");*/
     background-size: auto 100%;
     background-position: center center;
     background-repeat: no-repeat;
@@ -441,22 +441,22 @@
 }
 
 #youtube-portal-button-container, #youtube-icon-settings-component-container{
-  background-image: url("../media/img/youtube_logo.png");
+  background-image: url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/youtube_logo.png");/*"../media/img/youtube_logo.png");*/
   background-size: 100% 100%;
 }
 
 #instagram-portal-button-container, #instagram-icon-settings-component-container{
-  background-image: url("../media/img/ig-icon.png");
+  background-image: url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/ig-icon.png");/*"../media/img/ig-icon.png");*/
   background-size: 100% 100%;
 }
 
 #linkedin-portal-button-container, #linkedin-icon-settings-component-container{
-  background-image: url("../media/img/linkedin_logo.png");
+  background-image: url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/linkedin_logo.png");/*"../media/img/linkedin_logo.png");*/
   background-size: 100% 100%;
 }
 
 #whatsapp-portal-button-container, #whatsapp-icon-settings-component-container{
-  background-image: url("../media/img/whatsapp_logo.png");
+  background-image: url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/whatsapp_logo.png");/*../media/img/whatsapp_logo.png");*/
   background-size: 100% 100%;
 }
 
@@ -473,7 +473,7 @@
 #link-to-hov-portal-button-container{
   border-radius: 50%;
   position: absolute;
-  background-image: url("../media/img/hov_ig_logo.png");
+  background-image: url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/hov_ig_logo.png");/*../media/img/hov_ig_logo.png");*/
   background-size: 100% 100%;
   cursor: pointer;
   z-index: 50;
