@@ -1,0 +1,16 @@
+{
+  "name": "public-Augmented-Reality-kinectome",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "ejs": "latest",
+    "aws-sdk": "latest",
+    "express": "latest",
+    "body-parser": "latest",
+    "which-browser": "latest",
+    "socket.io": "latest"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}
