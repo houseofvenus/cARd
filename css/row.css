@@ -37,6 +37,10 @@ body, html{
     z-index: 0; /* refer to style diagram , i=1*/
 }
 
+#add-item-menu-button-container{
+  border-radius: 0 0 0 15px;
+}
+
 #app-menu-settings-container{
     z-index: 100; /* refer to style diagram , i=3*/
     background-color: white;
