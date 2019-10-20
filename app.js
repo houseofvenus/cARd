@@ -192,7 +192,7 @@ else {*/
   var profiles = {
     "ceo" : {
       name: "Patrice-Morgan Ongoly",
-      profilepic: "../media/img/pamo_profile.jpeg",
+      profilepic: "pamo_profile.jpeg",
       content: {
         youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
         linkedin: "https://www.linkedin.com/in/patrice-morgan-ongoly-8841b318a/",
@@ -202,7 +202,7 @@ else {*/
     },
     "guedalia" : {
       name: "Guedalia Dina-Lenda",
-      profilepic: "../media/img/gue_profile.png",
+      profilepic: "gue_profile.png",
       content: {
         youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
         linkedin: "https://www.linkedin.com/",
@@ -212,7 +212,7 @@ else {*/
     },
     "eric" : {
       name: "Eric Romano",
-      profilepic: "../media/img/eric_profile.png",
+      profilepic: "eric_profile.png",
       content: {
         youtube : "https://www.youtube.com/",
         linkedin: "https://www.linkedin.com/",
@@ -222,7 +222,7 @@ else {*/
     },
     "noah" : {
       name: "Noah Dagne",
-      profilepic: "../media/img/noah_profile.png",
+      profilepic: "noah_profile.png",
       content: {
         youtube : "https://www.youtube.com/",
         linkedin: "https://www.linkedin.com/",
@@ -232,7 +232,7 @@ else {*/
     },
     "cam" : {
       name: "Cameron Reed",
-      profilepic: "../media/img/cam_profile.jpg",
+      profilepic: "cam_profile.jpg",
       content: {
         youtube : "https://www.youtube.com/",
         linkedin: "https://www.linkedin.com/",

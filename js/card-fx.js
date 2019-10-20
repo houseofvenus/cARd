@@ -164,7 +164,7 @@ function connectNodeToNetwork(userName){
     sessionManager.connection.on("SERVERsendUserProfileCLIENT", function(data){
       if(data.status){
         console.log(data.user);
-        document.getElementById("profile-photo-image-container").style.backgroundImage = `url(${data.user.profilepic})`;
+        document.getElementById("profile-photo-image-container").style.backgroundImage = `url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/${data.user.profilepic}")`;
         document.getElementById("profile-photo-image-container").style.backgroundSize = "100% 100%";
 
         document.getElementById(`youtube-portal-button-container`).addEventListener("click", function(){
