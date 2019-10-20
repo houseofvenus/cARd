@@ -825,7 +825,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "set";
+              return "";
           },
           index: 32,
           children: [],
@@ -1550,6 +1550,179 @@ var Experience = {
               return el;
           }
       },
+      {
+          name: "old-row",
+          type: "container",
+          class: "world-stream-container",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "";
+          },
+          index: 62,
+          children: [],
+          parent: [],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+            name: "header",
+            type: "container",
+            class: "banner-container",
+            id: function(){
+                let self = this;
+                return ""+self.name+"-"+self.class;
+            },
+            content: function(){
+                return "R O W";
+            },
+            index: 63,
+            children: [],
+            parent: [
+              62
+            ],
+            element: function(){
+                let self = this;
+                let el = document.createElement("div");
+                el.setAttribute("id", self.id());
+                el.classList.add(self.class);
+                return el;
+            }
+        },
+      {
+        name: "augr",
+        type: "button-container",
+        class: "preview-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "AugR";
+        },
+        index: 64,
+        children: [
+        ],
+        parent: [
+          62
+        ],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            el.classList.add("top-bins");
+            return el;
+        }
+      },
+      {
+        name: "shoppAIR",
+        type: "button-container",
+        class: "preview-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "shoppAIR";
+        },
+        index: 65,
+        children: [
+        ],
+        parent: [
+          62
+        ],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            el.classList.add("top-bins");
+            return el;
+        }
+      },
+      {
+        name: "exit-profile-manager",
+        type: "button-container",
+        class: "exit-button-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "exit";
+        },
+        index: 66,
+        children: [
+        ],
+        parent: [
+          11
+        ],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            return el;
+        }
+      },
+      {
+        name: "exit-augr-settings",
+        type: "button-container",
+        class: "exit-button-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "exit";
+        },
+        index: 67,
+        children: [
+        ],
+        parent: [
+          33
+        ],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            return el;
+        }
+      },
+      {
+        name: "exit-world-stream",
+        type: "button-container",
+        class: "exit-button-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "exit";
+        },
+        index: 68,
+        children: [
+        ],
+        parent: [
+          62
+        ],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            return el;
+        }
+      },
     ],
     subjectobject: [],
     effector: [
@@ -1565,8 +1738,9 @@ var Experience = {
                       return true;
                   }
               },
-              appMenuSettingsContainerVisible: false,
-              loginPageOverlayContainerVisible: false,
+              augrSettingsContainerVisible: false,
+              profilePageManagerContainerVisible: false,
+              oldRowStreamContainerVisible: false,
               previewContainerInFocus: null,
               showAppSelectionPreview: function(target){
                 let self = this;
@@ -1636,6 +1810,60 @@ var Experience = {
               console.log(`${val}`);
             //  console.log("------------------------------------");
               switch(val){
+                  case "profile-manager-option-button-container":
+                      if(self.accessibility.profilePageManagerContainerVisible){
+                        document.getElementById("profile-manager-page-container").style.height = 0;
+                        document.getElementById("profile-manager-page-container").style.opacity = 0;
+                        setTimeout(function(){
+                            document.getElementById("profile-manager-page-container").style.display = "none";
+                            self.accessibility.profilePageManagerContainerVisible = false;
+                        }, 500);
+                      }
+                      else{
+                        document.getElementById("profile-manager-page-container").style.display = "block";
+                        setTimeout(function(){
+                          document.getElementById("profile-manager-page-container").style.height = "100%";
+                          document.getElementById("profile-manager-page-container").style.opacity = 1.0;
+                        }, 100);
+                        self.accessibility.profilePageManagerContainerVisible = true;
+                      }
+                  break;
+                  case "augr-settings-option-button-container":
+                      if(self.accessibility.augrSettingsContainerVisible){
+                        document.getElementById("augr-settings-page-container").style.height = 0;
+                        document.getElementById("augr-settings-page-container").style.opacity = 0;
+                        setTimeout(function(){
+                            document.getElementById("augr-settings-page-container").style.display = "none";
+                            self.accessibility.augrSettingsContainerVisible = false;
+                        }, 500);
+                      }
+                      else{
+                        document.getElementById("augr-settings-page-container").style.display = "block";
+                        setTimeout(function(){
+                          document.getElementById("augr-settings-page-container").style.height = "100%";
+                          document.getElementById("augr-settings-page-container").style.opacity = 1.0;
+                        }, 100);
+                        self.accessibility.augrSettingsContainerVisible = true;
+                      }
+                  break;
+                  case "orm-option-button-container":
+                      if(self.accessibility.oldRowStreamContainerVisible){
+                        document.getElementById("old-row-world-stream-container").style.height = 0;
+                        document.getElementById("old-row-world-stream-container").style.opacity = 0;
+                        setTimeout(function(){
+                            document.getElementById("old-row-world-stream-container").style.display = "none";
+                            self.accessibility.oldRowStreamContainerVisible = false;
+                        }, 500);
+                      }
+                      else{
+                        document.getElementById("old-row-world-stream-container").style.display = "block";
+                        setTimeout(function(){
+                          document.getElementById("old-row-world-stream-container").style.height = "100%";
+                          document.getElementById("old-row-world-stream-container").style.opacity = 1.0;
+                        }, 100);
+                        self.accessibility.oldRowStreamContainerVisible = true;
+                      }
+                  break;
                   case "youtube-portal-button-container":
                       console.log("no default setting \n server result ! youtube");
                   break;

@@ -101,19 +101,19 @@ var profiles = {
     profilepic: "../media/img/gue_profile.png",
     content: {
       youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
-      linkedin: "",
-      instagram: "",
-      whatsapp: ""
+      linkedin: "https://www.linkedin.com/",
+      instagram: "https://www.instagram.com/",
+      whatsapp: "+1 617 855 9966"
     }
   },
   "eric" : {
     name: "Eric Romano",
     profilepic: "../media/img/eric_profile.png",
     content: {
-      youtube : "",
-      linkedin: "",
-      instagram: "",
-      whatsapp: ""
+      youtube : "https://www.youtube.com/",
+      linkedin: "https://www.linkedin.com/",
+      instagram: "https://www.instagram.com/",
+      whatsapp: "+1 617 855 9966"
     }
   }
 };

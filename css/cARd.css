@@ -8,9 +8,12 @@
 
 .page-container{
   padding: 3% 0;
+  transition: height 0.5s, opacity 0.5s;
 }
 
 #profile-page-container{
+  position: absolute;
+  top: 0;
   background-color: white; /*yellow;*/
 }
 
@@ -60,10 +63,13 @@
 }
 
 #profile-manager-page-container{
-  background-color: aquamarine;
+  background-color: rgba(0, 0, 0, 0.9);/*black*/ /*aquamarine;*/
   display: none;
   height: 0;
   opacity: 0;
+  z-index: 100;
+  position: absolute;
+  top: 0;
 }
 
 .settings-container{
@@ -86,26 +92,33 @@
 .edit-settings-button-component{
   border-radius: 50%;
   text-align: center;
-  border: 2px black solid;
+  border: 2px white solid;
+  background-color: white;
+  color: black;
   display: inline-block;
 }
 
 #user-life-stream-container{
-  background-color: violet;
-  min-width: 350px;
-  min-height: 350px;
+  background-color: rgba(255,255,255,0.9);
+  border-radius: 10px;
+  min-width: 250px;
 }
 
 #augr-settings-page-container{
+  position: absolute;
+  top: 0;
   display: none;
   opacity: 0;
   height: 0;
+  z-index: 200;
+  background-color: rgba(0, 0, 0, 0.8);/*black*/
+  color: white;
   /*background-color: red;*/
 }
 
 .settings-manager-container{
   font-size: 0;
-  color: black;
+  color: white;
   text-align: center;
 }
 
@@ -126,7 +139,8 @@
   text-transform: uppercase;
   color: white;
   border-bottom: 2px white solid;
-  padding-bottom: 3%;
+  padding-bottom: 5%;
+  font-size: 44px;
 }
 
 .settings-manager-container{
@@ -160,7 +174,79 @@
   text-align: center;
 }
 
+.preview-container{
+  font-weight: 900;
+  line-height: 500px;
+  text-align: right;
+  padding: 5%;
+  color: white;
+  font-size: 24px;
+  width: 36%;
+  height: 45%;
+  min-width: 150px;
+  min-height: 300px;
+  display: inline-block;
+  border-radius: 5px;
+  margin: 0;
+  cursor: pointer;
+  box-shadow: 0;
+  border: 0;
+  transition: box-shadow 0.25s, border 0.25s, width 0.25s, height 0.25s;
+}
+
+#augr-preview-container{
+    background-image: url("../media/img/augr.gif");
+    background-size: auto 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#shoppAIR-preview-container{
+    background-image: url("../media/img/shoppAIR.gif");
+    background-size: auto 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#header-banner-container{
+    line-height: 100px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    font-size: 52px;
+    font-weight: 900;
+    border-radius: 10px;
+    z-index: 200; /* refer to style diagram, i=0 */
+}
+
+
+.exit-button-container{
+  border-radius: 50%;
+  color: black;
+  background-color: white;
+  text-align: center;
+  line-height: 100px;
+  width: 100px;
+  height: 100px;
+  /*background-color: red;*/
+  display: block;
+  margin: 10% auto;
+}
+
 @media only screen and (max-width: 640px){
+  #header-banner-container{
+      position: absolute;
+      width: 100%;
+      height: 10%;
+      top: 0;
+      left: 0;
+  }
+
+  .preview-container:hover{
+    width: 100%;
+    border: 0;
+  }
+
   .option-button-container{
     width: 90%;
   }
@@ -193,11 +279,13 @@
   #profile-manager-page-container{
     /*width: 100%;
     height: 100%;*/
+    width: 100%;
+    left: 0;
   }
 
   .settings-container{
     width: 100%;
-    margin: 0 auto;
+    margin: 3% auto;
   }
 
   .icon-settings-component{
@@ -224,25 +312,55 @@
   }
 
   #user-life-stream-container{
-    width: 100%;
-    height: 40%;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    height: 30%;
   }
 
   #augr-settings-page-container{
     /*width: 90%;
     height: 350px;
     padding: 5%;*/
+    padding-top: 15%;
+    width: 100%;
+    left: 0;
+  }
+
+  #old-row-world-stream-container{
+    width: 100%;
+    left: 0;
+    background-color: rgba(0, 0, 255, 0.5);
   }
 }
 
 @media only screen and (min-width: 640px){
+  #header-banner-container{
+      position: relative;
+      width: 580px;
+      height: 100px;
+      margin: 4% auto 2% auto;
+      display: block;
+  }
+
+  .preview-container{
+    margin: 1%;
+  }
+
+  .preview-container:hover{
+    width: 80%;
+
+    border: 5px white solid;
+  }
+
   .option-button-container{
     width: 100%;
   }
 
   #profile-page-container{
     width: 500px;
-    margin: 0 auto;
+    margin-left: -250px;
+    left: 50%;
   }
 
   #profile-photo-image-container{
@@ -266,11 +384,14 @@
   #profile-manager-page-container{
   /*  width: 550px;
     margin: 0 auto;*/
+    width: 550px;
+    margin-left: -275px;
+    left: 50%;
   }
 
   .settings-container{
     width: 530px;
-    margin: 1% auto;
+    margin: 3% auto;
   }
 
   .icon-settings-component{
@@ -296,15 +417,24 @@
 
   #user-life-stream-container{
     width: 350px;
-    height: 350px;
     margin: 2% auto;
+    height: 250px;
   }
 
   #augr-settings-page-container{
-  /*  width: 450px;
-    height: 350px;
-    margin: 0 auto;
-    padding: 5%;*/
+    width: 450px;
+    padding: 5%;
+    left: 50%;
+    margin-left: -250px;
+  /*  height: 350px;
+    margin: 0 auto;*/
+  }
+
+  #old-row-world-stream-container{
+    width: 600px;
+    left: 50%;
+    margin-left: -300px;
+    background-color: rgba(0, 0, 255, 0.5);
   }
 }
 
@@ -326,4 +456,14 @@
 #whatsapp-portal-button-container, #whatsapp-icon-settings-component-container{
   background-image: url("../media/img/whatsapp_logo.png");
   background-size: 100% 100%;
+}
+
+#old-row-world-stream-container{
+  position: absolute;
+  top: 0;
+  height: 0;
+  display: none;
+  z-index: 300;
+  transition: height 0.5s, opacity 0.5s;
+  overflow-y: scroll;
 }
