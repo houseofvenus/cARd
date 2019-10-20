@@ -186,3 +186,10 @@ function connectNodeToNetwork(userName){
       }
     });
 }
+
+function init(user){
+    buildExperience();
+    connectNodeToNetwork(user);
+}
+
+var sessionManager = null;

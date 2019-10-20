@@ -1,6 +1,6 @@
 // author(s):  Patrice-Morgan Ongoly
-// version: 0.1.0
-// last modified: Thursday, October 17, 2019 08:55 EST
+// version: 0.3.0
+// last modified: Sunday, October 20, 2019 06:59 EST
 // description:
 
 // required modules
@@ -61,6 +61,66 @@ app.get('/', function(req, res){
     res.render('index.html',{root: dir[0]});
 });
 
+app.get('/guedalia', function(req, res){
+    var result = new WhichBrowser(req.headers);
+    console.log(result.toString());
+    if(result.isType('desktop')){
+        console.log('This is a desktop computer.');
+        deviceType = 'desktop';
+    }
+    else{
+        console.log('This is a mobile device.');
+        deviceType = 'mobile';
+    }
+
+    res.render('guedalia.html',{root: dir[0]});
+});
+
+app.get('/eric', function(req, res){
+    var result = new WhichBrowser(req.headers);
+    console.log(result.toString());
+    if(result.isType('desktop')){
+        console.log('This is a desktop computer.');
+        deviceType = 'desktop';
+    }
+    else{
+        console.log('This is a mobile device.');
+        deviceType = 'mobile';
+    }
+
+    res.render('eric.html',{root: dir[0]});
+});
+
+app.get('/noah', function(req, res){
+    var result = new WhichBrowser(req.headers);
+    console.log(result.toString());
+    if(result.isType('desktop')){
+        console.log('This is a desktop computer.');
+        deviceType = 'desktop';
+    }
+    else{
+        console.log('This is a mobile device.');
+        deviceType = 'mobile';
+    }
+
+    res.render('noah.html',{root: dir[0]});
+});
+
+app.get('/cam', function(req, res){
+    var result = new WhichBrowser(req.headers);
+    console.log(result.toString());
+    if(result.isType('desktop')){
+        console.log('This is a desktop computer.');
+        deviceType = 'desktop';
+    }
+    else{
+        console.log('This is a mobile device.');
+        deviceType = 'mobile';
+    }
+
+    res.render('cam.html',{root: dir[0]});
+});
+
 app.get('/css/:stylesheet_id', function(req, res){
     let stylesheet_id = req.params.stylesheet_id;
     res.sendFile(stylesheet_id, {root: dir[1]} );
@@ -78,7 +138,7 @@ app.get('/media/img/:img_id', function(req, res){
 
 var io = require('socket.io').listen(app.listen(config.PORT, function(){
     console.log('connecting \n . \n .. \n ... \n .... \n ..... \n ------------------------------------------');
-    console.log('    AUGR 0.0.2');
+    console.log('    ORM 0.3.0');
     console.log('------------------------------------------');
     console.log(`[0] listening on port ${config.PORT}`);
     console.log('------------------------------------------');
@@ -108,6 +168,26 @@ var profiles = {
   },
   "eric" : {
     name: "Eric Romano",
+    profilepic: "../media/img/eric_profile.png",
+    content: {
+      youtube : "https://www.youtube.com/",
+      linkedin: "https://www.linkedin.com/",
+      instagram: "https://www.instagram.com/",
+      whatsapp: "+1 617 855 9966"
+    }
+  },
+  "noah" : {
+    name: "Noah Dagne",
+    profilepic: "../media/img/eric_profile.png",
+    content: {
+      youtube : "https://www.youtube.com/",
+      linkedin: "https://www.linkedin.com/",
+      instagram: "https://www.instagram.com/",
+      whatsapp: "+1 617 855 9966"
+    }
+  },
+  "cam" : {
+    name: "Cameron Reed",
     profilepic: "../media/img/eric_profile.png",
     content: {
       youtube : "https://www.youtube.com/",

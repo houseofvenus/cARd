@@ -1657,7 +1657,7 @@ var Experience = {
             return ""+self.name+"-"+self.class;
         },
         content: function(){
-            return "exit";
+            return "back";
         },
         index: 66,
         children: [
@@ -1682,7 +1682,7 @@ var Experience = {
             return ""+self.name+"-"+self.class;
         },
         content: function(){
-            return "exit";
+            return "back";
         },
         index: 67,
         children: [
@@ -1800,6 +1800,61 @@ var Experience = {
                     document.getElementById("selection-download-count-selection-component-container").innerHTML = `<div style="font-weight: 700;">${descriptions[target].downloadCount}</div>`;
                     document.getElementById("selection-active-user-count-selection-component-container").innerHTML = `<div style="font-weight: 700;">${descriptions[target].activeUserCount}</div>`;
                   }, 500);
+              },
+              toggleProfileManagerContainer: function(){
+                let self = this;
+                if(self.profilePageManagerContainerVisible){
+                  document.getElementById("profile-manager-page-container").style.height = 0;
+                  document.getElementById("profile-manager-page-container").style.opacity = 0;
+                  setTimeout(function(){
+                      document.getElementById("profile-manager-page-container").style.display = "none";
+                      self.profilePageManagerContainerVisible = false;
+                  }, 500);
+                }
+                else{
+                  document.getElementById("profile-manager-page-container").style.display = "block";
+                  setTimeout(function(){
+                    document.getElementById("profile-manager-page-container").style.height = "100%";
+                    document.getElementById("profile-manager-page-container").style.opacity = 1.0;
+                  }, 100);
+                  self.profilePageManagerContainerVisible = true;
+                }
+              },
+              toggleAugRSettingsContainer: function(){
+                if(self.augrSettingsContainerVisible){
+                  document.getElementById("augr-settings-page-container").style.height = 0;
+                  document.getElementById("augr-settings-page-container").style.opacity = 0;
+                  setTimeout(function(){
+                      document.getElementById("augr-settings-page-container").style.display = "none";
+                      self.augrSettingsContainerVisible = false;
+                  }, 500);
+                }
+                else{
+                  document.getElementById("augr-settings-page-container").style.display = "block";
+                  setTimeout(function(){
+                    document.getElementById("augr-settings-page-container").style.height = "100%";
+                    document.getElementById("augr-settings-page-container").style.opacity = 1.0;
+                  }, 100);
+                  self.augrSettingsContainerVisible = true;
+                }
+              },
+              toggleWorldStreamVisibility: function(){
+                if(self.oldRowStreamContainerVisible){
+                  document.getElementById("old-row-world-stream-container").style.height = 0;
+                  document.getElementById("old-row-world-stream-container").style.opacity = 0;
+                  setTimeout(function(){
+                      document.getElementById("old-row-world-stream-container").style.display = "none";
+                      self.oldRowStreamContainerVisible = false;
+                  }, 500);
+                }
+                else{
+                  document.getElementById("old-row-world-stream-container").style.display = "block";
+                  setTimeout(function(){
+                    document.getElementById("old-row-world-stream-container").style.height = "100%";
+                    document.getElementById("old-row-world-stream-container").style.opacity = 1.0;
+                  }, 100);
+                  self.oldRowStreamContainerVisible = true;
+                }
               }
           },
           fx: function(target){
@@ -1810,59 +1865,17 @@ var Experience = {
               console.log(`${val}`);
             //  console.log("------------------------------------");
               switch(val){
+                  case "exit-profile-manager-exit-button-container":
                   case "profile-manager-option-button-container":
-                      if(self.accessibility.profilePageManagerContainerVisible){
-                        document.getElementById("profile-manager-page-container").style.height = 0;
-                        document.getElementById("profile-manager-page-container").style.opacity = 0;
-                        setTimeout(function(){
-                            document.getElementById("profile-manager-page-container").style.display = "none";
-                            self.accessibility.profilePageManagerContainerVisible = false;
-                        }, 500);
-                      }
-                      else{
-                        document.getElementById("profile-manager-page-container").style.display = "block";
-                        setTimeout(function(){
-                          document.getElementById("profile-manager-page-container").style.height = "100%";
-                          document.getElementById("profile-manager-page-container").style.opacity = 1.0;
-                        }, 100);
-                        self.accessibility.profilePageManagerContainerVisible = true;
-                      }
+                      self.accessibility.toggleProfileManagerContainer();
                   break;
+                  case "exit-augr-settings-exit-button-container":
                   case "augr-settings-option-button-container":
-                      if(self.accessibility.augrSettingsContainerVisible){
-                        document.getElementById("augr-settings-page-container").style.height = 0;
-                        document.getElementById("augr-settings-page-container").style.opacity = 0;
-                        setTimeout(function(){
-                            document.getElementById("augr-settings-page-container").style.display = "none";
-                            self.accessibility.augrSettingsContainerVisible = false;
-                        }, 500);
-                      }
-                      else{
-                        document.getElementById("augr-settings-page-container").style.display = "block";
-                        setTimeout(function(){
-                          document.getElementById("augr-settings-page-container").style.height = "100%";
-                          document.getElementById("augr-settings-page-container").style.opacity = 1.0;
-                        }, 100);
-                        self.accessibility.augrSettingsContainerVisible = true;
-                      }
+                      self.accessibility.toggleAugRSettingsContainer();
                   break;
+                  case "exit-world-stream-exit-button-container":
                   case "orm-option-button-container":
-                      if(self.accessibility.oldRowStreamContainerVisible){
-                        document.getElementById("old-row-world-stream-container").style.height = 0;
-                        document.getElementById("old-row-world-stream-container").style.opacity = 0;
-                        setTimeout(function(){
-                            document.getElementById("old-row-world-stream-container").style.display = "none";
-                            self.accessibility.oldRowStreamContainerVisible = false;
-                        }, 500);
-                      }
-                      else{
-                        document.getElementById("old-row-world-stream-container").style.display = "block";
-                        setTimeout(function(){
-                          document.getElementById("old-row-world-stream-container").style.height = "100%";
-                          document.getElementById("old-row-world-stream-container").style.opacity = 1.0;
-                        }, 100);
-                        self.accessibility.oldRowStreamContainerVisible = true;
-                      }
+                      self.accessibility.toggleWorldStreamVisibility();
                   break;
                   case "youtube-portal-button-container":
                       console.log("no default setting \n server result ! youtube");
