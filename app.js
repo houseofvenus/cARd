@@ -25,7 +25,7 @@ if (cluster.isMaster) {
 
 // Code to run if we're in a worker process
 }
-else {
+else {/**/
 
   // author(s):  Patrice-Morgan Ongoly
   // version: 0.3.0
@@ -271,3 +271,4 @@ else {
   });
 
 }
+/**/
