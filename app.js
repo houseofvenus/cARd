@@ -61,6 +61,21 @@ app.get('/', function(req, res){
     res.render('index.html',{root: dir[0]});
 });
 
+app.get('/ceo', function(req, res){
+    var result = new WhichBrowser(req.headers);
+    console.log(result.toString());
+    if(result.isType('desktop')){
+        console.log('This is a desktop computer.');
+        deviceType = 'desktop';
+    }
+    else{
+        console.log('This is a mobile device.');
+        deviceType = 'mobile';
+    }
+
+    res.render('ceo.html',{root: dir[0]});
+});
+
 app.get('/guedalia', function(req, res){
     var result = new WhichBrowser(req.headers);
     console.log(result.toString());
@@ -178,7 +193,7 @@ var profiles = {
   },
   "noah" : {
     name: "Noah Dagne",
-    profilepic: "../media/img/eric_profile.png",
+    profilepic: "../media/img/noah_profile.png",
     content: {
       youtube : "https://www.youtube.com/",
       linkedin: "https://www.linkedin.com/",
@@ -188,7 +203,7 @@ var profiles = {
   },
   "cam" : {
     name: "Cameron Reed",
-    profilepic: "../media/img/eric_profile.png",
+    profilepic: "../media/img/cam_profile.jpg",
     content: {
       youtube : "https://www.youtube.com/",
       linkedin: "https://www.linkedin.com/",

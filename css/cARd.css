@@ -63,7 +63,7 @@
 }
 
 #profile-manager-page-container{
-  background-color: rgba(0, 0, 0, 0.9);/*black*/ /*aquamarine;*/
+  background-color: rgba(255, 255, 0, 0.9);/*black*/ /*aquamarine;*/
   display: none;
   height: 0;
   opacity: 0;
@@ -216,7 +216,6 @@
     text-align: center;
     font-size: 52px;
     font-weight: 900;
-    border-radius: 10px;
     z-index: 200; /* refer to style diagram, i=0 */
 }
 
@@ -241,6 +240,7 @@
       height: 10%;
       top: 0;
       left: 0;
+      border-radius: 0 0 10px 10px;
   }
 
   .preview-container:hover{
@@ -342,6 +342,7 @@
       height: 100px;
       margin: 4% auto 2% auto;
       display: block;
+      border-radius: 10px;
   }
 
   .preview-container{
@@ -467,4 +468,17 @@
   z-index: 300;
   transition: height 0.5s, opacity 0.5s;
   overflow-y: scroll;
+}
+
+#link-to-hov-portal-button-container{
+  border-radius: 50%;
+  position: absolute;
+  background-image: url("../media/img/hov_ig_logo.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+  z-index: 50;
+  top: 2%;
+  right: 2%;
+  width: 75px;
+  height: 75px;
 }

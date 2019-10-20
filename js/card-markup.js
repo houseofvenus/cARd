@@ -1723,6 +1723,28 @@ var Experience = {
             return el;
         }
       },
+      {
+        name: "link-to-hov",
+        type: "button-container",
+        class: "portal-button-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "";
+        },
+        index: 69,
+        children: [],
+        parent: [],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            return el;
+        }
+      },
     ],
     subjectobject: [],
     effector: [
