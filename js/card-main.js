@@ -1,6 +1,6 @@
 function init(){
     buildExperience();
-    connectNodeToNetwork();
+    connectNodeToNetwork("ceo");
 }
 
 var sessionManager = null;

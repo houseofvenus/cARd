@@ -6,8 +6,12 @@
     font-family: "Archivo", sans-serif;
 }
 
+.page-container{
+  padding: 3% 0;
+}
+
 #profile-page-container{
-  background-color: yellow;
+  background-color: white; /*yellow;*/
 }
 
 .banner-container{
@@ -19,7 +23,7 @@
   border-radius: 50%;
   background-color: black;
   color: white;
-  margin: 5% auto;
+  margin: 0 auto 5% auto;
 }
 
 .portal-button-container{
@@ -38,19 +42,28 @@
 }
 
 .option-button-container{
-  width: 100%;
+  border-radius: 10px;
   height: 30%;
   font-size: 30px;
   text-align: center;
   line-height: 75px;
-  margin: 2% auto;
+  margin: 5% auto;
   background-color: rgba(255, 255, 255, 1.0);
   border: 2px black solid;
+  cursor: pointer;
+  transition: color 0.25s, background-color 0.25s;
 }
 
+.option-button-container:hover{
+  background-color: black;
+  color: white;
+}
 
 #profile-manager-page-container{
   background-color: aquamarine;
+  display: none;
+  height: 0;
+  opacity: 0;
 }
 
 .settings-container{
@@ -83,7 +96,75 @@
   min-height: 350px;
 }
 
+#augr-settings-page-container{
+  display: none;
+  opacity: 0;
+  height: 0;
+  /*background-color: red;*/
+}
+
+.settings-manager-container{
+  font-size: 0;
+  color: black;
+  text-align: center;
+}
+
+.format-checkbox{
+  margin-left: 15%;
+  width: 15% !important;
+}
+
+.settings-manager-component{
+  display: inline-block;
+  text-align: center;
+  width: 33%;
+  font-size: 16px;
+}
+
+#augr-settings-header-title-container{
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  border-bottom: 2px white solid;
+  padding-bottom: 3%;
+}
+
+.settings-manager-container{
+  width: 80%;
+  height: 30px;
+  margin: 2% auto;
+  line-height: 30px;
+}
+
+#network-settings-title-settings-component-container, #sensory-settings-title-settings-component-container{
+  border-top: 2px white solid;
+  height: 50px;
+  line-height: 50px;
+  color: white;
+}
+
+#network-settings-park-name-settings-component-container, #network-settings-aria-count-settings-component-container, #network-settings-cards-count-settings-component-container{
+  height: 35px;
+  line-height: 35px;
+}
+
+#sensory-settings-vision-settings-component-container, #sensory-settings-touch-settings-component-container, #sensory-settings-hearing-settings-component-container{
+  height: 35px;
+  line-height: 35px;
+}
+
+#sensory-settings-manager-container, #network-settings-manager-container{
+  width: 49%;
+  height: auto;
+  display: inline-block;
+  text-align: center;
+}
+
 @media only screen and (max-width: 640px){
+  .option-button-container{
+    width: 90%;
+  }
+
   #profile-page-container{
     width: 100%;
     height: 100%;
@@ -110,8 +191,8 @@
   }
 
   #profile-manager-page-container{
-    width: 100%;
-    height: 100%;
+    /*width: 100%;
+    height: 100%;*/
   }
 
   .settings-container{
@@ -146,9 +227,19 @@
     width: 100%;
     height: 40%;
   }
+
+  #augr-settings-page-container{
+    /*width: 90%;
+    height: 350px;
+    padding: 5%;*/
+  }
 }
 
 @media only screen and (min-width: 640px){
+  .option-button-container{
+    width: 100%;
+  }
+
   #profile-page-container{
     width: 500px;
     margin: 0 auto;
@@ -173,8 +264,8 @@
   }
 
   #profile-manager-page-container{
-    width: 550px;
-    margin: 0 auto;
+  /*  width: 550px;
+    margin: 0 auto;*/
   }
 
   .settings-container{
@@ -209,4 +300,30 @@
     margin: 2% auto;
   }
 
+  #augr-settings-page-container{
+  /*  width: 450px;
+    height: 350px;
+    margin: 0 auto;
+    padding: 5%;*/
+  }
+}
+
+#youtube-portal-button-container, #youtube-icon-settings-component-container{
+  background-image: url("../media/img/youtube_logo.png");
+  background-size: 100% 100%;
+}
+
+#instagram-portal-button-container, #instagram-icon-settings-component-container{
+  background-image: url("../media/img/ig-icon.png");
+  background-size: 100% 100%;
+}
+
+#linkedin-portal-button-container, #linkedin-icon-settings-component-container{
+  background-image: url("../media/img/linkedin_logo.png");
+  background-size: 100% 100%;
+}
+
+#whatsapp-portal-button-container, #whatsapp-icon-settings-component-container{
+  background-image: url("../media/img/whatsapp_logo.png");
+  background-size: 100% 100%;
 }

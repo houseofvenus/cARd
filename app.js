@@ -85,6 +85,39 @@ var io = require('socket.io').listen(app.listen(config.PORT, function(){
 
 }));
 
+var profiles = {
+  "ceo" : {
+    name: "Patrice-Morgan Ongoly",
+    profilepic: "../media/img/pamo_profile.jpeg",
+    content: {
+      youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
+      linkedin: "https://www.linkedin.com/in/patrice-morgan-ongoly-8841b318a/",
+      instagram: "https://www.instagram.com/ceo.hov/",
+      whatsapp: "+1 617 855 9966"
+    }
+  },
+  "guedalia" : {
+    name: "Guedalia Dina-Lenda",
+    profilepic: "../media/img/gue_profile.png",
+    content: {
+      youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
+      linkedin: "",
+      instagram: "",
+      whatsapp: ""
+    }
+  },
+  "eric" : {
+    name: "Eric Romano",
+    profilepic: "../media/img/eric_profile.png",
+    content: {
+      youtube : "",
+      linkedin: "",
+      instagram: "",
+      whatsapp: ""
+    }
+  }
+};
+
 io.sockets.on('connection', function(socket){
     console.log('client connected.');
     //var conn = socket;
@@ -93,10 +126,18 @@ io.sockets.on('connection', function(socket){
 
 
     // client sockets
-    socket.on("checkForNodeOnNetwork", function(data){
-        let meta = data;
-        if(meta.status){
-            console.log(`searching for node on ${meta.name} network...`);
+    socket.on("CLIENTidentifyNodeAsViewerSERVER", function(data){
+        if(data.status){
+            console.log(`node connected to network...`);
+            socket.emit("SERVERnodeIdentifiedCLIENT", {status: true});
+        }
+    });
+
+    socket.on("CLIENTrequestUserProfileSERVER", function(data){
+        if(data.status){
+            console.log(`requesting profile for ${data.name}...`);
+            console.log(profiles[data.name]);
+            socket.emit("SERVERsendUserProfileCLIENT", {status: true, user: profiles[data.name]});
         }
     });
 

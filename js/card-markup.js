@@ -871,7 +871,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "AugR Settings";
           },
           index: 34,
           children: [],
@@ -887,9 +887,9 @@ var Experience = {
           }
       },
       {
-          name: "2d-format-settings",
+          name: "2d-format",
           type: "container",
-          class: "manager-container",
+          class: "settings-manager-container",
           id: function(){
               let self = this;
               return ""+self.name+"-"+self.class;
@@ -911,9 +911,9 @@ var Experience = {
           }
       },
       {
-          name: "3d-0-format-settings",
+          name: "3d-0-format",
           type: "container",
-          class: "manager-container",
+          class: "settings-manager-container",
           id: function(){
               let self = this;
               return ""+self.name+"-"+self.class;
@@ -935,9 +935,9 @@ var Experience = {
           }
       },
       {
-          name: "3d-1-format-settings",
+          name: "3d-1-format",
           type: "container",
-          class: "manager-container",
+          class: "settings-manager-container",
           id: function(){
               let self = this;
               return ""+self.name+"-"+self.class;
@@ -959,9 +959,9 @@ var Experience = {
           }
       },
       {
-          name: "3d-2-format-settings",
+          name: "3d-2-format",
           type: "container",
-          class: "manager-container",
+          class: "settings-manager-container",
           id: function(){
               let self = this;
               return ""+self.name+"-"+self.class;
@@ -1039,7 +1039,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "NETWORK";
           },
           index: 41,
           children: [],
@@ -1063,7 +1063,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "pARk";
           },
           index: 42,
           children: [],
@@ -1087,7 +1087,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "ARias";
           },
           index: 43,
           children: [],
@@ -1111,7 +1111,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "cARds";
           },
           index: 44,
           children: [],
@@ -1159,7 +1159,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "SENSORS";
           },
           index: 46,
           children: [],
@@ -1175,7 +1175,7 @@ var Experience = {
           }
       },
       {
-          name: "sensory-settings-park-name",
+          name: "sensory-settings-vision",
           type: "container",
           class: "settings-component-container",
           id: function(){
@@ -1183,7 +1183,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "vision";
           },
           index: 47,
           children: [],
@@ -1199,7 +1199,7 @@ var Experience = {
           }
       },
       {
-          name: "sensory-settings-aria-count",
+          name: "sensory-settings-touch",
           type: "container",
           class: "settings-component-container",
           id: function(){
@@ -1207,7 +1207,7 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "touch";
           },
           index: 48,
           children: [],
@@ -1223,7 +1223,7 @@ var Experience = {
           }
       },
       {
-          name: "sensory-settings-cards-count",
+          name: "sensory-settings-hearing",
           type: "container",
           class: "settings-component-container",
           id: function(){
@@ -1231,12 +1231,316 @@ var Experience = {
               return ""+self.name+"-"+self.class;
           },
           content: function(){
-              return "";
+              return "hearing";
           },
           index: 49,
           children: [],
           parent: [
             45
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "2d-format-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "2D flat";
+          },
+          index: 50,
+          children: [],
+          parent: [
+            35
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "2d-format-checkbox",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "";
+          },
+          index: 51,
+          children: [],
+          parent: [
+            35
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("input");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              el.classList.add("format-checkbox");
+              el.setAttribute("type","checkbox");
+              el.setAttribute("name","2dformat");
+              el.setAttribute("value","0");
+              return el;
+          }
+      },
+      {
+          name: "2d-format-pop-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return `"Traditional"`;
+          },
+          index: 52,
+          children: [],
+          parent: [
+            35
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "3d-0-format-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "3D";
+          },
+          index: 53,
+          children: [],
+          parent: [
+            36
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "3d-0-format-checkbox",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "";
+          },
+          index: 54,
+          children: [],
+          parent: [
+            36
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("input");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              el.classList.add("format-checkbox");
+              el.setAttribute("type","checkbox");
+              el.setAttribute("name","3d0format");
+              el.setAttribute("value","1");
+              return el;
+          }
+      },
+      {
+          name: "3d-0-format-pop-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return `"VR"`;
+          },
+          index: 55,
+          children: [],
+          parent: [
+            36
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "3d-1-format-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "camera";
+          },
+          index: 56,
+          children: [],
+          parent: [
+            37
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "3d-1-format-checkbox",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "";
+          },
+          index: 57,
+          children: [],
+          parent: [
+            37
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("input");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              el.classList.add("format-checkbox");
+              el.setAttribute("type","checkbox");
+              el.setAttribute("name","3d1format");
+              el.setAttribute("value","1");
+              return el;
+          }
+      },
+      {
+          name: "3d-1-format-pop-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return `"AR"`;
+          },
+          index: 58,
+          children: [],
+          parent: [
+            37
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "3d-2-format-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "multisensory";
+          },
+          index: 59,
+          children: [],
+          parent: [
+            38
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("div");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              return el;
+          }
+      },
+      {
+          name: "3d-2-format-checkbox",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return "";
+          },
+          index: 60,
+          children: [],
+          parent: [
+            38
+          ],
+          element: function(){
+              let self = this;
+              let el = document.createElement("input");
+              el.setAttribute("id", self.id());
+              el.classList.add(self.class);
+              el.classList.add("format-checkbox");
+              el.setAttribute("type","checkbox");
+              el.setAttribute("name","3d2format");
+              el.setAttribute("value","2");
+              return el;
+          }
+      },
+      {
+          name: "3d-2-format-pop-title",
+          type: "container",
+          class: "settings-manager-component",
+          id: function(){
+              let self = this;
+              return ""+self.name+"-"+self.class;
+          },
+          content: function(){
+              return `"Immersive"`;
+          },
+          index: 61,
+          children: [],
+          parent: [
+            38
           ],
           element: function(){
               let self = this;
@@ -1328,114 +1632,21 @@ var Experience = {
               let val = target;
               let self = this;
 
-              console.log("------------------------------------");
+            //  console.log("------------------------------------");
               console.log(`${val}`);
-              console.log("------------------------------------");
+            //  console.log("------------------------------------");
               switch(val){
-                  case "augr-preview-container":
-                      document.getElementById("augr-preview-container").style.width = "100%";
-                      document.getElementById("augr-preview-container").style.height = "100%";
-                      //document.getElementById("world-stream-stream-container").scrollTo({ top: document.getElementById("augr-preview-container").offsetTop, behavior: "smooth"});
-                      //self.accessibility.previewContainerInFocus = "augr-preview-container";
-
-                      self.accessibility.showAppSelectionPreview("augr-preview-container");
-
+                  case "youtube-portal-button-container":
+                      console.log("no default setting \n server result ! youtube");
                   break;
-                  case "shoppAIR-preview-container":
-                      document.getElementById("shoppAIR-preview-container").style.width = "100%";
-                      document.getElementById("shoppAIR-preview-container").style.height = "100%";
-                      //self.accessibility.previewContainerInFocus = "shoppAIR-preview-container";
-
-                      self.accessibility.showAppSelectionPreview("shoppAIR-preview-container");
+                  case "instagram-portal-button-container":
+                      console.log("no default setting \n server result ! instagram");
                   break;
-                  case "snackshack-preview-container":
-                      document.getElementById("snackshack-preview-container").style.width = "100%";
-                      document.getElementById("snackshack-preview-container").style.height = "100%";
-                      //self.accessibility.previewContainerInFocus = "snackshack-preview-container";
-
-                      self.accessibility.showAppSelectionPreview("snackshack-preview-container");
+                  case "linkedin-portal-button-container":
+                      console.log("no default setting \n server result ! linkedin");
                   break;
-                  case "lyoko-preview-container":
-                      document.getElementById("lyoko-preview-container").style.width = "100%";
-                      document.getElementById("lyoko-preview-container").style.height = "100%";
-                      //self.accessibility.previewContainerInFocus = "lyoko-preview-container";
-
-                      self.accessibility.showAppSelectionPreview("lyoko-preview-container");
-                  break;
-                  case "solAR-preview-container":
-                      document.getElementById("solAR-preview-container").style.width = "100%";
-                      document.getElementById("solAR-preview-container").style.height = "100%";
-                      //self.accessibility.previewContainerInFocus = "solAR-preview-container";
-
-                      self.accessibility.showAppSelectionPreview("solAR-preview-container");
-                  break;
-                  case "exit-selection-preview-selection-component-container":  /* SAME CODE AS ~~111~~~ below */
-                      setTimeout(function(){
-                        document.getElementById("app-selection-page-overlay-container").style.display = "none";
-                        self.accessibility.previewContainerInFocus = null;
-                      }, 500);
-                      document.getElementById("app-selection-page-overlay-container").style.opacity = "0";
-                      document.getElementById("app-selection-page-overlay-container").style.height = "0";
-                      document.getElementById(self.accessibility.previewContainerInFocus).style.width = null;//"unset";//"36%";
-                      document.getElementById(self.accessibility.previewContainerInFocus).style.height = null;//"unset";//"45%";
-                      let selectionComponents = document.getElementById("app-selection-page-overlay-container").children;
-                      for(var z=0; z<selectionComponents.length; z++){
-                        (function(){
-                          selectionComponents[z].style.display = "none";
-                        })();
-                      }
-                  break;
-                  case "exit-login-form-form-component-container":  /* SAME CODE AS ~~111~~~ below */
-                      setTimeout(function(){
-                        document.getElementById("login-page-overlay-container").style.display = "none";
-                      }, 500);
-                      document.getElementById("login-page-overlay-container").style.opacity = "0";
-                      document.getElementById("login-page-overlay-container").style.height = "0";
-                      self.accessibility.loginPageOverlayContainerVisible = false;
-                  break;
-                  case "add-item-menu-button-container":
-                      if(self.accessibility.loginPageOverlayContainerVisible){  /* ~~~111~~~ */
-                        setTimeout(function(){
-                          document.getElementById("login-page-overlay-container").style.display = "none";
-                        }, 500);
-                        document.getElementById("login-page-overlay-container").style.opacity = "0";
-                        document.getElementById("login-page-overlay-container").style.height = "0";
-                        self.accessibility.loginPageOverlayContainerVisible = false;
-                      }
-                      else{
-                        document.getElementById("login-page-overlay-container").style.display = "block";
-                        setTimeout(function(){
-                          document.getElementById("login-page-overlay-container").style.opacity = "1.0";
-                          document.getElementById("login-page-overlay-container").style.height = "100%";
-
-                          self.accessibility.loginPageOverlayContainerVisible = true;
-                        }, 50);
-                      }
-                  break;
-                  case "app-menu-button-container":
-                      console.log("toggle menu settings container");
-                      if(self.accessibility.appMenuSettingsContainerVisible){
-                          setTimeout(function(){
-                            document.getElementById("app-menu-settings-container").style.display = "none";
-                          }, 500);
-                          document.getElementById("app-menu-settings-container").style.opacity = "0";
-                          document.getElementById("app-menu-settings-container").style.height = "0";
-                          self.accessibility.appMenuSettingsContainerVisible = false;
-                      }
-                      else{
-                          document.getElementById("app-menu-settings-container").style.display = "block";
-                          setTimeout(function(){
-                            document.getElementById("app-menu-settings-container").style.opacity = "1.0";
-                            if(self.accessibility.isMobile()){
-                                document.getElementById("app-menu-settings-container").style.height = "50%";
-                            }
-                            else{
-                                document.getElementById("app-menu-settings-container").style.height = "300px";
-                            }
-                            self.accessibility.appMenuSettingsContainerVisible = true;
-                          }, 50);
-
-                      }
+                  case "whatsapp-portal-button-container":
+                      console.log("no default setting \n server result ! whatsapp");
                   break;
                   default:
                       console.log("no specific functionality defined for this target.");

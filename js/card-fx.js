@@ -144,10 +144,45 @@ function buildExperience(){
     }
 }
 
-function connectNodeToNetwork(){
+function connectNodeToNetwork(userName){
+  let user = userName;
     sessionManager = {
         connection: io.connect(location.host),
         network: "pARk"
     };
-    sessionManager.connection.emit("identifyNodeAsViewer", {status: true});
+    //setTimeout(function(){
+      sessionManager.connection.emit("CLIENTidentifyNodeAsViewerSERVER", {status: true});
+    //}, 50);
+
+
+    sessionManager.connection.on("SERVERnodeIdentifiedCLIENT", function(data){
+      if(data.status){
+        sessionManager.connection.emit("CLIENTrequestUserProfileSERVER", {status: true, name: user});
+      }
+    });
+
+    sessionManager.connection.on("SERVERsendUserProfileCLIENT", function(data){
+      if(data.status){
+        console.log(data.user);
+        document.getElementById("profile-photo-image-container").style.backgroundImage = `url(${data.user.profilepic})`;
+        document.getElementById("profile-photo-image-container").style.backgroundSize = "100% 100%";
+
+        document.getElementById(`youtube-portal-button-container`).addEventListener("click", function(){
+            window.open(data.user.content.youtube, "_blank");
+        });
+
+        document.getElementById(`instagram-portal-button-container`).addEventListener("click", function(){
+            window.open(data.user.content.instagram, "_blank");
+        });
+
+        document.getElementById(`linkedin-portal-button-container`).addEventListener("click", function(){
+            window.open(data.user.content.linkedin, "_blank");
+        });
+
+        document.getElementById(`whatsapp-portal-button-container`).addEventListener("click", function(){
+            //window.open("./whatsup", "_blank");
+            console.log(data.user.content.whatsapp);
+        });
+      }
+    });
 }
