@@ -278,26 +278,18 @@ else {*/
   };
 
   var history = [];
-  /*setInterval(function(){
-    // log history
-    if(history.length>0&&history.length>lastLength){
-      console.log(".");
-    }
-    else{
-      console.log(history);
-    }
-  }, 1000);*/
-var lastLength = 0;
-  io.sockets.on('connection', function(socket){
 
-      var address = socket.handshake;
+  var lastLength = 0;
+  io.sockets.on('connection', function(socket){
+      console.log(socket.conn.remoteAddress);
+      var address = {address : socket.conn.remoteAddress}
       console.log(`client connected at ${address.address}`);
-      console.log(address.headers.host);
+
+    /*  console.log(address.headers.host);
       console.log(address.headers.referer);
-      console.log(address.headers.time);
+      console.log(address.headers.time);*/
       //console.log(address);
       if(history.length==0){
-
         history.push({
            object : address,
            activity: []
@@ -327,7 +319,6 @@ var lastLength = 0;
       //var conn = socket;
 
       // applicationClient sockets
-
 
       // client sockets
       socket.on("CLIENTidentifyNodeAsViewerToSERVER", function(data){
@@ -380,23 +371,29 @@ var lastLength = 0;
                 passes.push(source[o].profilepass);
               })();
           }
-          if(passes.indexOf(data.user.pass)>-1){
-            console.log("found it!");
-            console.log(passes.indexOf(data.user.pass));
-          /*  for(z=0; z<history.length;z++){
-              (function(){*/
-                history[passes.indexOf(data.user.pass)].activity.push("loggedin");
-                history[passes.indexOf(data.user.pass)].object.USER = source[passes.indexOf(data.user.pass)];
-          /*    })();
-        }*/
-            //history
-            socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: source[passes.indexOf(data.user.pass)]});
-          }
-          else{
-            console.log("user not found :(");
-            console.log(passes);
-            socket.emit("SERVERrequestAnotherLoginAttemptFromCLIENT", {status: true, });
-          }
+          setTimeout(function(){
+            let loc = passes.indexOf(data.user.pass);
+            if(loc>-1){
+              console.log("found it!");
+              let choice = source[loc];
+              console.log(loc);
+              console.log(choice);
+            /*  for(z=0; z<history.length;z++){
+                (function(){*/
+                  history[loc].activity.push("loggedin");
+                  history[loc].object.USER = choice;
+            /*    })();
+          }*/
+              //history
+              socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: choice});
+            }
+            else{
+              console.log("user not found :(");
+              console.log(passes);
+              socket.emit("SERVERrequestAnotherLoginAttemptFromCLIENT", {status: true, });
+            }
+          }, 100);
+
         }
       });
 

@@ -252,6 +252,7 @@ var Experience = {
                     //console.log()
                     socket.on("SERVERsendProfileToUserOnCLIENT", function(data){
                       if(data.status){
+                        console.log(data.user);
                         let target = data.user.index[1];
 
                         console.log("show animation for successful login...");
