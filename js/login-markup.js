@@ -243,6 +243,33 @@ var Experience = {
               console.log(`${val}`);
             //  console.log("------------------------------------");
               switch(val){
+                case "login-connect-button-container":
+                    let username = document.getElementById("login-user-name-input-container").value;
+                    let password = document.getElementById("login-password-input-container").value;
+                    console.log(`user ${username} | pass ${password}`);
+                    let socket = io.connect(location.host);
+                    socket.emit("CLIENTrequestLoginForUserOnSERVER", {status: true, user: {name: username, pass: password}});
+                    //console.log()
+                    socket.on("SERVERsendProfileToUserOnCLIENT", function(data){
+                      if(data.status){
+                        let target = data.user.index[1];
+
+                        console.log("show animation for successful login...");
+                        console.log(target);
+
+                        setTimeout(function(){
+                          window.location.replace(`./${target}`);
+                        }, 2000);
+                      }
+                    });
+
+                    socket.on("SERVERrequestAnotherLoginAttemptFromCLIENT", function(data){
+                      if(data.status){
+                        console.log("try again!");
+                        console.log(data.user);
+                      }
+                    });
+                break;
                   default:
                       console.log("no specific functionality defined for this target.");
                   break;

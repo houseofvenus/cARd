@@ -151,19 +151,27 @@ function connectNodeToNetwork(userName){
         network: "pARk"
     };
     //setTimeout(function(){
-      sessionManager.connection.emit("CLIENTidentifyNodeAsViewerSERVER", {status: true, network: sessionManager.network, dia: "row", content: "login"});
+      sessionManager.connection.emit("CLIENTidentifyNodeAsViewerToSERVER", {status: true, network: sessionManager.network, dia: "row", content: "login"});
     //}, 50);
-    sessionManager.connection.on("SERVERnodeIdentifiedCLIENT", function(data){
+    sessionManager.connection.on("SERVERnodeHasIdentifiedCLIENT", function(data){
       if(data.status){
-        sessionManager.connection.emit("CLIENTrequestAdministratorLoginFormSERVER", {status: true, name: user});
+        console.log("linked successful");
       }
     });
 
-    sessionManager.connection.on("SERVERsendAdministratorToRedirectCLIENT", function(data){
+    sessionManager.connection.on("SERVERsendProfileToUserOnCLIENT", function(data){
       if(data.status){
+        let target = data.user.index[1];
 
+        console.log("show animation for successful login...");
+        console.log(target);
+
+        setTimeout(function(){
+          window.location.replace(`./${target}`);
+        }, 2000);
       }
     });
+
 }
 
 function init(page){

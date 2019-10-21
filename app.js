@@ -206,6 +206,7 @@ else {*/
 
   var profiles = {
     "ceo" : {
+      index: [0, "ceo"],
       name: "Patrice-Morgan Ongoly",
       profilepic: "pamo_profile.jpeg",
       content: {
@@ -213,9 +214,13 @@ else {*/
         linkedin: "https://www.linkedin.com/in/patrice-morgan-ongoly-8841b318a/",
         instagram: "https://www.instagram.com/ceo.hov/",
         whatsapp: "+1 617 855 9966"
-      }
+      },
+      replyto: "ceo@houseofven.us",
+      profilename: "starmaker",
+      profilepass: "james!230NG0LY"
     },
     "guedalia" : {
+      index: [1, "guedalia"],
       name: "Guedalia Dina-Lenda",
       profilepic: "gue_profile.png",
       content: {
@@ -223,9 +228,13 @@ else {*/
         linkedin: "https://www.linkedin.com/",
         instagram: "https://www.instagram.com/",
         whatsapp: "+1 617 855 9966"
-      }
+      },
+      replyto: "gue.acornparkmd@gmail.com",
+      profilename: "LaD17",
+      profilepass: "l3r0id3MADZIA"
     },
     "eric" : {
+      index: [2, "eric"],
       name: "Eric Romano",
       profilepic: "eric_profile.png",
       content: {
@@ -233,9 +242,13 @@ else {*/
         linkedin: "https://www.linkedin.com/",
         instagram: "https://www.instagram.com/",
         whatsapp: "+1 617 855 9966"
-      }
+      },
+      replyto: "ericrom1228@gmail.com",
+      profilename: "eromano1",
+      profilepass: "Ero122896"
     },
     "noah" : {
+      index: [3, "noah"],
       name: "Noah Dagne",
       profilepic: "noah_profile.png",
       content: {
@@ -243,9 +256,13 @@ else {*/
         linkedin: "https://www.linkedin.com/",
         instagram: "https://www.instagram.com/",
         whatsapp: "+1 617 855 9966"
-      }
+      },
+      replyto: "dagne.noah@gmail.com",
+      profilename: "dagne.noah",
+      profilepass: "p@ssw0rD"
     },
     "cam" : {
+      index: [4, "cam"],
       name: "Cameron Reed",
       profilepic: "cam_profile.jpg",
       content: {
@@ -253,32 +270,141 @@ else {*/
         linkedin: "https://www.linkedin.com/",
         instagram: "https://www.instagram.com/",
         whatsapp: "+1 617 855 9966"
-      }
+      },
+      replyto: "chylton@gmail.com",
+      profilename: "chylton",
+      profilepass: "p@ssw0rD"
     }
   };
 
+  var history = [];
+  /*setInterval(function(){
+    // log history
+    if(history.length>0&&history.length>lastLength){
+      console.log(".");
+    }
+    else{
+      console.log(history);
+    }
+  }, 1000);*/
+var lastLength = 0;
   io.sockets.on('connection', function(socket){
-      console.log('client connected.');
+
+      var address = socket.handshake;
+      console.log(`client connected at ${address.address}`);
+      console.log(address.headers.host);
+      console.log(address.headers.referer);
+      console.log(address.headers.time);
+      //console.log(address);
+      if(history.length==0){
+
+        history.push({
+           object : address,
+           activity: []
+         });
+      }
+      else{
+        let logged = false;
+        for(var u=0; u<history.length; u++){
+          (function(){
+            console.log(history[u].object.address);
+            if(history[u].object.address==address.address){
+              logged = true;
+              history[u].activity.push("logged");
+            }
+          })();
+        }
+        if(!logged){
+          history.push({
+            object :address,
+            activity: []
+          });
+        }
+        else{
+          console.log("already connected to this");
+        }
+      }
       //var conn = socket;
 
       // applicationClient sockets
 
 
       // client sockets
-      socket.on("CLIENTidentifyNodeAsViewerSERVER", function(data){
+      socket.on("CLIENTidentifyNodeAsViewerToSERVER", function(data){
           if(data.status){
               console.log(`node connected to network ${data.network}`);
               console.log(`checking out DIA ${data.dia}`);
               console.log(`loading content...\n ${data.content}`);
-              socket.emit("SERVERnodeIdentifiedCLIENT", {status: true});
+
+              for(y=0; y<history.length; y++){
+                (function(){
+                  let foundOne = false;
+                  if(history[y].object.address == socket.handshake.address){
+                    for(w=0; w<history[y].activity.length; w++){
+                      //let last = history[y].activity.length-1;
+                      if(history[y].activity[w]=="loggedin"&&data.content=="login"){
+                        //history[y].activity.push(data.content);
+                        foundOne = true;
+                      }
+                    }
+                    if(foundOne){
+                      history[y].activity.push("redirect-loggedin");
+
+                      console.log(history[y].object.address);
+                      console.log(history[y].activity);
+
+                      console.log("sending user directly to page they are already logged into");
+                      console.log(socket.id);
+                      socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: history[y].object.USER});
+                    }
+                    else{
+                      history[y].activity.push(data.content);
+                      console.log(history[y].object.address);
+                      console.log(history[y].activity);
+                    }
+                  }
+                })();
+              }
+
+              socket.emit("SERVERnodeHasIdentifiedCLIENT", {status: true});
           }
       });
 
-      socket.on("CLIENTrequestUserProfileSERVER", function(data){
+      socket.on("CLIENTrequestLoginForUserOnSERVER", function(data){
+        if(data.status){
+          console.log(data.user);
+          let source = Object.values(profiles);
+          let passes = [];
+          for(var o=0; o<source.length; o++){
+              (function(){
+                passes.push(source[o].profilepass);
+              })();
+          }
+          if(passes.indexOf(data.user.pass)>-1){
+            console.log("found it!");
+            console.log(passes.indexOf(data.user.pass));
+          /*  for(z=0; z<history.length;z++){
+              (function(){*/
+                history[passes.indexOf(data.user.pass)].activity.push("loggedin");
+                history[passes.indexOf(data.user.pass)].object.USER = source[passes.indexOf(data.user.pass)];
+          /*    })();
+        }*/
+            //history
+            socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: source[passes.indexOf(data.user.pass)]});
+          }
+          else{
+            console.log("user not found :(");
+            console.log(passes);
+            socket.emit("SERVERrequestAnotherLoginAttemptFromCLIENT", {status: true, });
+          }
+        }
+      });
+
+      socket.on("CLIENTrequestUserProfileFromSERVER", function(data){
           if(data.status){
               console.log(`requesting profile for ${data.name}...`);
               console.log(profiles[data.name]);
-              socket.emit("SERVERsendUserProfileCLIENT", {status: true, user: profiles[data.name]});
+              socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: profiles[data.name]});
           }
       });
 

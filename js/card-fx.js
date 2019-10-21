@@ -151,17 +151,17 @@ function connectNodeToNetwork(userName){
         network: "pARk"
     };
     //setTimeout(function(){
-      sessionManager.connection.emit("CLIENTidentifyNodeAsViewerSERVER", {status: true});
+      sessionManager.connection.emit("CLIENTidentifyNodeAsViewerToSERVER", {status: true, network: sessionManager.network, dia: "row", content: "profile"});
     //}, 50);
 
 
-    sessionManager.connection.on("SERVERnodeIdentifiedCLIENT", function(data){
+    sessionManager.connection.on("SERVERnodeHasIdentifiedCLIENT", function(data){
       if(data.status){
-        sessionManager.connection.emit("CLIENTrequestUserProfileSERVER", {status: true, name: user});
+        sessionManager.connection.emit("CLIENTrequestUserProfileFromSERVER", {status: true, name: user});
       }
     });
 
-    sessionManager.connection.on("SERVERsendUserProfileCLIENT", function(data){
+    sessionManager.connection.on("SERVERsendProfileToUserOnCLIENT", function(data){
       if(data.status){
         console.log(data.user);
         document.getElementById("profile-photo-image-container").style.backgroundImage = `url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/${data.user.profilepic}")`;
