@@ -161,6 +161,7 @@ function connectNodeToNetwork(userName){
 
     sessionManager.connection.on("SERVERsendProfileToUserOnCLIENT", function(data){
       if(data.status){
+        console.log(data);
         let target = data.user.index[1];
 
         console.log("show animation for successful login...");

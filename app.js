@@ -74,9 +74,9 @@ else {*/
   app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
   app.use(express.static('/'));
-
+var result;
   app.get('/', function(req, res){
-      var result = new WhichBrowser(req.headers);
+      result = new WhichBrowser(req.headers);
       console.log(result.toString());
       if(result.isType('desktop')){
           console.log('This is a desktop computer.');
@@ -91,92 +91,32 @@ else {*/
   });
 
   app.get('/login', function(req, res){
-      var result = new WhichBrowser(req.headers);
-      console.log(result.toString());
-      if(result.isType('desktop')){
-          console.log('This is a desktop computer.');
-          deviceType = 'desktop';
-      }
-      else{
-          console.log('This is a mobile device.');
-          deviceType = 'mobile';
-      }
-
+      result = new WhichBrowser(req.headers);
       res.render('login.html',{root: dir[0]});
   });
 
   app.get('/ceo', function(req, res){
-      var result = new WhichBrowser(req.headers);
-      console.log(result.toString());
-      if(result.isType('desktop')){
-          console.log('This is a desktop computer.');
-          deviceType = 'desktop';
-      }
-      else{
-          console.log('This is a mobile device.');
-          deviceType = 'mobile';
-      }
-
+      result = new WhichBrowser(req.headers);
       res.render('ceo.html',{root: dir[0]});
   });
 
   app.get('/guedalia', function(req, res){
-      var result = new WhichBrowser(req.headers);
-      console.log(result.toString());
-      if(result.isType('desktop')){
-          console.log('This is a desktop computer.');
-          deviceType = 'desktop';
-      }
-      else{
-          console.log('This is a mobile device.');
-          deviceType = 'mobile';
-      }
-
+      result = new WhichBrowser(req.headers);
       res.render('guedalia.html',{root: dir[0]});
   });
 
   app.get('/eric', function(req, res){
-      var result = new WhichBrowser(req.headers);
-      console.log(result.toString());
-      if(result.isType('desktop')){
-          console.log('This is a desktop computer.');
-          deviceType = 'desktop';
-      }
-      else{
-          console.log('This is a mobile device.');
-          deviceType = 'mobile';
-      }
-
+      result = new WhichBrowser(req.headers);
       res.render('eric.html',{root: dir[0]});
   });
 
   app.get('/noah', function(req, res){
-      var result = new WhichBrowser(req.headers);
-      console.log(result.toString());
-      if(result.isType('desktop')){
-          console.log('This is a desktop computer.');
-          deviceType = 'desktop';
-      }
-      else{
-          console.log('This is a mobile device.');
-          deviceType = 'mobile';
-      }
-
+      result = new WhichBrowser(req.headers);
       res.render('noah.html',{root: dir[0]});
   });
 
   app.get('/cam', function(req, res){
-      var result = new WhichBrowser(req.headers);
-      console.log(result.toString());
-      if(result.isType('desktop')){
-          console.log('This is a desktop computer.');
-          deviceType = 'desktop';
-      }
-      else{
-          console.log('This is a mobile device.');
-          deviceType = 'mobile';
-      }
-
+      result = new WhichBrowser(req.headers);
       res.render('cam.html',{root: dir[0]});
   });
 
@@ -205,6 +145,20 @@ else {*/
   }));
 
   var profiles = {
+    "guest" : {
+      index: [-1, "login"],
+      name: "Patrice-Morgan Ongoly",
+      profilepic: "pamo_profile.jpeg",
+      content: {
+        youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
+        linkedin: "https://www.linkedin.com/in/patrice-morgan-ongoly-8841b318a/",
+        instagram: "https://www.instagram.com/ceo.hov/",
+        whatsapp: "+1 617 855 9966"
+      },
+      replyto: "ceo@houseofven.us",
+      profilename: "",
+      profilepass: ""
+    },
     "ceo" : {
       index: [0, "ceo"],
       name: "Patrice-Morgan Ongoly",
@@ -276,86 +230,154 @@ else {*/
       profilepass: "p@ssw0rD"
     }
   };
+  var signatures = {};
 
   var history = [];
 
   var lastLength = 0;
+
+  var localHistory = null;
   io.sockets.on('connection', function(socket){
       console.log(socket.conn.remoteAddress);
-      var address = {address : socket.conn.remoteAddress}
+      var address = {address : socket.conn.remoteAddress};
       console.log(`client connected at ${address.address}`);
+      let numOfSigns = Object.keys(signatures).length;
 
-    /*  console.log(address.headers.host);
-      console.log(address.headers.referer);
-      console.log(address.headers.time);*/
-      //console.log(address);
-      if(history.length==0){
-        history.push({
-           object : address,
-           activity: []
-         });
+      console.log(`num of signs ${numOfSigns}`);
+      if(numOfSigns==0){
+        let signature = {
+          total: result.toString(),
+          browser: result.browser.toString(),
+          engine: result.engine.toString(),
+          os: result.os.toString(),
+          isMobile: result.isMobile(),
+          history: [],
+          user: profiles["user"]
+        };
+        signatures[result.toString()] = signature;
+        console.log(`signature:`);
+        console.log(signature);
       }
       else{
-        let logged = false;
-        for(var u=0; u<history.length; u++){
+
+        let total = Object.values(signatures);
+        console.log(`SIGNATURES!!!!`);
+        console.log(signatures);
+        let alreadyConnectedToThis = false;
+        for(var t=0;t<numOfSigns;t++){
           (function(){
-            console.log(history[u].object.address);
-            if(history[u].object.address==address.address){
-              logged = true;
-              history[u].activity.push("logged");
+            if(total[t].total==result.toString()){
+                //if there is a match use it...
+              localHistory = total[t].history;
+              console.log("already connected to this");
+              alreadyConnectedToThis = true;
             }
+              /*total[t].browser==result.browser.toString()
+            total[t].engine==result.engine.toString()
+            total[t].os==result.os.toString()
+            total[t].isMobile==result.isMobile()*/
           })();
         }
-        if(!logged){
-          history.push({
-            object :address,
-            activity: []
-          });
-        }
-        else{
-          console.log("already connected to this");
-        }
+
+        // ... otherwise create a new signature
+          if(localHistory==null||alreadyConnectedToThis==false){
+            let signature = {
+              object: address,
+              total: result.toString(),
+              browser: result.browser.toString(),
+              engine: result.engine.toString(),
+              os: result.os.toString(),
+              isMobile: result.isMobile(),
+              history: [],
+              user: profiles["user"]
+            };
+            signatures[result.toString()] = signature;
+          }
+
+          signatures[result.toString()].history.push("client-conn");
+          signatures[result.toString()].history.push("logged");
+          localHistory = signatures[result.toString()].history;
+
       }
-      //var conn = socket;
 
-      // applicationClient sockets
-
-      // client sockets
       socket.on("CLIENTidentifyNodeAsViewerToSERVER", function(data){
           if(data.status){
               console.log(`node connected to network ${data.network}`);
               console.log(`checking out DIA ${data.dia}`);
               console.log(`loading content...\n ${data.content}`);
+              /////
 
-              for(y=0; y<history.length; y++){
-                (function(){
-                  let foundOne = false;
-                  if(history[y].object.address == socket.handshake.address){
-                    for(w=0; w<history[y].activity.length; w++){
-                      //let last = history[y].activity.length-1;
-                      if(history[y].activity[w]=="loggedin"&&data.content=="login"){
-                        //history[y].activity.push(data.content);
-                        foundOne = true;
-                      }
-                    }
-                    if(foundOne){
-                      history[y].activity.push("redirect-loggedin");
 
-                      console.log(history[y].object.address);
-                      console.log(history[y].activity);
 
-                      console.log("sending user directly to page they are already logged into");
-                      console.log(socket.id);
-                      socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: history[y].object.USER});
-                    }
-                    else{
-                      history[y].activity.push(data.content);
-                      console.log(history[y].object.address);
-                      console.log(history[y].activity);
-                    }
-                  }
-                })();
+
+              numOfSigns = Object.keys(signatures).length;
+
+              console.log(`num of signs ${numOfSigns}`);
+              if(numOfSigns==0){
+                let signature = {
+                  total: result.toString(),
+                  browser: result.browser.toString(),
+                  engine: result.engine.toString(),
+                  os: result.os.toString(),
+                  isMobile: result.isMobile(),
+                  history: []
+                };
+                signatures[result.toString()] = signature;
+                console.log(`signature:`);
+                console.log(signature);
               }
+              else{
+                let alreadyConnectedToThis = false;
+                let total = Object.values(signatures);
+                console.log(`SIGNATURES!!!!`);
+                console.log(signatures);
+                let current = null;
+                for(var t=0;t<numOfSigns;t++){
+                  (function(){
+                    if(total[t].total==result.toString()){
+                        //if there is a match use it...
+                      localHistory = total[t].history;
+                      alreadyConnectedToThis = true;
+                      console.log("already connected to this");
+                      console.log(localHistory);
+                      //current = localHistory;
+                    }
+                  })();
+                }
+
+                // ... otherwise create a new signasendture
+
+                if(localHistory==null||alreadyConnectedToThis==false){
+                    let signature = {
+                      total: result.toString(),
+                      browser: result.browser.toString(),
+                      engine: result.engine.toString(),
+                      os: result.os.toString(),
+                      isMobile: result.isMobile(),
+                      history: [],
+                      user: profiles["user"]
+                    };
+                    signatures[result.toString()] = signature;
+                    /*history.push({
+                       object : address,
+                       activity: [],
+                       sign: signature
+                     });*/
+                  }
+                  signatures[result.toString()].history.push(data.content);
+                  signatures[result.toString()].history.push("logged");
+                  localHistory = signatures[result.toString()].history;
+                  if(localHistory.indexOf("loggedin")>-1&&data.content=="login"){
+                    socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, test: "overhere", user: signatures[result.toString()].user});
+                  }
+
+              }
+
+
+
+
+              /////
+
 
               socket.emit("SERVERnodeHasIdentifiedCLIENT", {status: true});
           }
@@ -378,14 +400,56 @@ else {*/
               let choice = source[loc];
               console.log(loc);
               console.log(choice);
-            /*  for(z=0; z<history.length;z++){
-                (function(){*/
-                  history[loc].activity.push("loggedin");
-                  history[loc].object.USER = choice;
-            /*    })();
-          }*/
-              //history
-              socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: choice});
+
+              if(numOfSigns==0){
+                  let signature = {
+                    total: result.toString(),
+                    browser: result.browser.toString(),
+                    engine: result.engine.toString(),
+                    os: result.os.toString(),
+                    isMobile: result.isMobile(),
+                    history: []
+                  };
+                  signatures[result.toString()] = signature;
+                  console.log(`signature:`);
+                  console.log(signature);
+              }
+              else{
+                  let total = Object.values(signatures);
+                  let alreadyConnectedToThis = false;
+                  console.log(`SIGNATURES!!!!`);
+                  console.log(signatures);
+                  for(var t=0;t<numOfSigns;t++){
+                      (function(){
+                          if(total[t].total==result.toString()){
+                          //if there is a match use it...
+                        localHistory = total[t].history;
+                        console.log("already connected to this");
+                        alreadyConnectedToThis = true;
+                      }
+                      })();
+                  }
+
+                  // ... otherwise create a new signature
+                  if(localHistory==null||alreadyConnectedToThis==false){
+                      let signature = {
+                      object: address,
+                      total: result.toString(),
+                      browser: result.browser.toString(),
+                      engine: result.engine.toString(),
+                      os: result.os.toString(),
+                      isMobile: result.isMobile(),
+                      history: [],
+                      user: profiles["user"]
+                    };
+                      signatures[result.toString()] = signature;
+                  }
+                  console.log(choice);
+                  signatures[result.toString()].history.push("loggedin");
+                  signatures[result.toString()].user = choice;
+                  localHistory = signatures[result.toString()].history;
+                  socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: choice});
+                }
             }
             else{
               console.log("user not found :(");
