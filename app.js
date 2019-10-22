@@ -1,8 +1,8 @@
-// Include the cluster module
+Object// Include the cluster module
 var cluster = require('cluster');
 
 // Code to run if we're in the master process
-/*
+/**/
 
 if (cluster.isMaster) {
 
@@ -91,32 +91,44 @@ var result;
   });
 
   app.get('/login', function(req, res){
+      console.log("------------------------- \n accessing login page");
       result = new WhichBrowser(req.headers);
+      console.log(result.toString());
       res.render('login.html',{root: dir[0]});
   });
 
   app.get('/ceo', function(req, res){
+      console.log("------------------------- \n accessing ceo page");
       result = new WhichBrowser(req.headers);
+      console.log(result.toString());
       res.render('ceo.html',{root: dir[0]});
   });
 
   app.get('/guedalia', function(req, res){
+      console.log("------------------------- \n accessing guedalia page");
       result = new WhichBrowser(req.headers);
+      console.log(result.toString());
       res.render('guedalia.html',{root: dir[0]});
   });
 
   app.get('/eric', function(req, res){
+      console.log("------------------------- \n accessing eric page");
       result = new WhichBrowser(req.headers);
+      console.log(result.toString());
       res.render('eric.html',{root: dir[0]});
   });
 
   app.get('/noah', function(req, res){
+      console.log("------------------------- \n accessing noah page");
       result = new WhichBrowser(req.headers);
+      console.log(result.toString());
       res.render('noah.html',{root: dir[0]});
   });
 
   app.get('/cam', function(req, res){
+      console.log("------------------------- \n accessing cam page");
       result = new WhichBrowser(req.headers);
+      console.log(result.toString());
       res.render('cam.html',{root: dir[0]});
   });
 
@@ -157,7 +169,9 @@ var result;
       },
       replyto: "admin@houseofven.us",
       profilename: "guest",
-      profilepass: "guest"
+      profilepass: "guest",
+      loggedIn: false,
+      timeStart: null
     },
     "ceo" : {
       index: [0, "ceo"],
@@ -171,7 +185,9 @@ var result;
       },
       replyto: "ceo@houseofven.us",
       profilename: "starmaker",
-      profilepass: "james!230NG0LY"
+      profilepass: "james!230NG0LY",
+      loggedIn: false,
+      timeStart: null
     },
     "guedalia" : {
       index: [1, "guedalia"],
@@ -185,7 +201,9 @@ var result;
       },
       replyto: "gue.acornparkmd@gmail.com",
       profilename: "LaD17",
-      profilepass: "l3r0id3MADZIA"
+      profilepass: "l3r0id3MADZIA",
+      loggedIn: false,
+      timeStart: null
     },
     "eric" : {
       index: [2, "eric"],
@@ -199,7 +217,9 @@ var result;
       },
       replyto: "ericrom1228@gmail.com",
       profilename: "eromano1",
-      profilepass: "Ero122896"
+      profilepass: "Ero122896",
+      loggedIn: false,
+      timeStart: null
     },
     "noah" : {
       index: [3, "noah"],
@@ -213,7 +233,9 @@ var result;
       },
       replyto: "dagne.noah@gmail.com",
       profilename: "dagne.noah",
-      profilepass: "p@ssw0rD"
+      profilepass: "p@ssw0rD",
+      loggedIn: false,
+      timeStart: null
     },
     "cam" : {
       index: [4, "cam"],
@@ -227,7 +249,9 @@ var result;
       },
       replyto: "chylton@gmail.com",
       profilename: "chylton",
-      profilepass: "p@ssw0rD"
+      profilepass: "p@ssw0rD",
+      loggedIn: false,
+      timeStart: null
     }
   };
   var signatures = {};
@@ -237,6 +261,64 @@ var result;
   var lastLength = 0;
 
   var localHistory = null;
+
+var pingCount = 0;
+var checkSignatures = setInterval(function(){
+  let keys = Object.keys(profiles);
+  console.log(`[ping [${pingCount}]`);
+  for(var c=0; c<keys.length; c++){
+    //console.log(user);
+    (function(){
+      let user = profiles[keys[c]];
+
+      //  console.log(user);
+      if(user.loggedIn&&user.timeStart!=null){
+        let now = (new Date).getTime();
+        let diff = now-user.timeStart;
+
+
+        console.log(`[${c}] ${diff} since login`);
+        let ratioToThirty = (diff/(1.8*Math.pow(10, 6))); //100*     1.8*
+
+        if((ratioToThirty>80&&ratioToThirty<82)||(ratioToThirty>90&&ratioToThirty<92)){
+          console.log("TODO: broadcast logout warning to all sockets connected to this account");
+        }
+
+        if(ratioToThirty>1){
+      //  let pos = signatures.map(function(e) { return e.user; }).indexOf(user);
+          user.loggedIn = false;
+
+        /*  for(var p = 0; p<Object.keys(signatures).length; p++){
+            Object.values(signatures)[p].indexOf()
+          }
+          signatures[result.toString()].history.push("client-conn");*/
+          if(user.loginHistory==undefined||user.loginHistory==null){
+            user.loginHistory = [];
+          }
+          user.loginHistory.push({
+            sessionStart: user.timeStart,
+            sessionEnd: (new Date).getTime()
+          });
+          user.timeStart = null;
+
+          let signs = Object.values(signatures);
+          for(var e =0;e<signs.length; e++){
+            (function(){
+              if(signs[e].user == user){
+                signs[e].history.push("loggedout");
+                console.log(signs[e]);
+                console.log("logged out \n ------------------------------");
+              }
+            })();
+          }
+          console.log("TODO: broadcast logout sequence to all sockets connected to this account");
+        }
+      }
+    })();
+
+  }
+  pingCount++;
+}, 30000);
   io.sockets.on('connection', function(socket){
       console.log(socket.conn.remoteAddress);
       var address = {address : socket.conn.remoteAddress};
@@ -245,14 +327,26 @@ var result;
 
       console.log(`num of signs ${numOfSigns}`);
       if(numOfSigns==0){
+        if(result==null){
+          result = {
+            total: "long-poll",
+            browser: "unknown",
+            os: "unknown",
+            engine: "unknown",
+            isMobile: "unknown",
+            history: [],
+            user: {}
+          }
+        }
         let signature = {
+          object: address,
           total: result.toString(),
           browser: result.browser.toString(),
           engine: result.engine.toString(),
           os: result.os.toString(),
           isMobile: result.isMobile(),
           history: [],
-          user: profiles["user"]
+          user: profiles["guest"]
         };
         signatures[result.toString()] = signature;
         console.log(`signature:`);
@@ -261,8 +355,11 @@ var result;
       else{
 
         let total = Object.values(signatures);
-        console.log(`SIGNATURES!!!!`);
+        console.log(`existing SIGNATURES ------------------------\n`);
         console.log(signatures);
+        console.log(`------------------------`);
+        console.log(`current sign ${result.toString()}`);
+
         let alreadyConnectedToThis = false;
         for(var t=0;t<numOfSigns;t++){
           (function(){
@@ -289,7 +386,7 @@ var result;
               os: result.os.toString(),
               isMobile: result.isMobile(),
               history: [],
-              user: profiles["user"]
+              user: profiles["guest"]
             };
             signatures[result.toString()] = signature;
           }
@@ -308,19 +405,19 @@ var result;
               /////
 
 
-
-
               numOfSigns = Object.keys(signatures).length;
 
               console.log(`num of signs ${numOfSigns}`);
               if(numOfSigns==0){
                 let signature = {
+                  object: address,
                   total: result.toString(),
                   browser: result.browser.toString(),
                   engine: result.engine.toString(),
                   os: result.os.toString(),
                   isMobile: result.isMobile(),
-                  history: []
+                  history: [],
+                  user: profiles["guest"]
                 };
                 signatures[result.toString()] = signature;
                 console.log(`signature:`);
@@ -329,8 +426,11 @@ var result;
               else{
                 let alreadyConnectedToThis = false;
                 let total = Object.values(signatures);
-                console.log(`SIGNATURES!!!!`);
+                console.log(`existing SIGNATURES ------------------------\n`);
                 console.log(signatures);
+                console.log(`------------------------`);
+                console.log(`current sign ${result.toString()}`);
+
                 let current = null;
                 for(var t=0;t<numOfSigns;t++){
                   (function(){
@@ -349,13 +449,14 @@ var result;
 
                 if(localHistory==null||alreadyConnectedToThis==false){
                     let signature = {
+                      object: address,
                       total: result.toString(),
                       browser: result.browser.toString(),
                       engine: result.engine.toString(),
                       os: result.os.toString(),
                       isMobile: result.isMobile(),
                       history: [],
-                      user: profiles["user"]
+                      user: profiles["guest"]
                     };
                     signatures[result.toString()] = signature;
                     /*history.push({
@@ -367,8 +468,8 @@ var result;
                   signatures[result.toString()].history.push(data.content);
                   signatures[result.toString()].history.push("logged");
                   localHistory = signatures[result.toString()].history;
-                  if(localHistory.indexOf("loggedin")>-1&&data.content=="login"){
-                    socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, test: "overhere", user: signatures[result.toString()].user});
+                  if(localHistory.lastIndexOf("loggedin")>-1&&data.content=="login"&&(localHistory.lastIndexOf("loggedin")>localHistory.lastIndexOf("loggedout"))){
+                    socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: signatures[result.toString()].user});
                   }
 
               }
@@ -404,6 +505,7 @@ var result;
 
               if(numOfSigns==0){
                   let signature = {
+                    object: address,
                     total: result.toString(),
                     browser: result.browser.toString(),
                     engine: result.engine.toString(),
@@ -423,8 +525,11 @@ var result;
               else{
                   let total = Object.values(signatures);
                   let alreadyConnectedToThis = false;
-                  console.log(`SIGNATURES!!!!`);
+                  console.log(`existing SIGNATURES ------------------------\n`);
                   console.log(signatures);
+                  console.log(`------------------------`);
+                  console.log(`current sign ${result.toString()}`);
+
                   for(var t=0;t<numOfSigns;t++){
                       (function(){
                           if(total[t].total==result.toString()){
@@ -446,7 +551,7 @@ var result;
                         os: result.os.toString(),
                         isMobile: result.isMobile(),
                         history: [],
-                        user: profiles["user"]
+                        user: profiles["guest"]
                       };
                       signatures[result.toString()] = signature;
                   }
@@ -487,5 +592,5 @@ var result;
       });
   });
 
-/*}
+}
 /**/
