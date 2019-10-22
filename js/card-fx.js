@@ -164,6 +164,7 @@ function connectNodeToNetwork(userName){
     sessionManager.connection.on("SERVERsendProfileToUserOnCLIENT", function(data){
       if(data.status){
         console.log(data.user);
+
         document.getElementById("profile-photo-image-container").style.backgroundImage = `url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/${data.user.profilepic}")`;
         document.getElementById("profile-photo-image-container").style.backgroundSize = "100% 100%";
 
@@ -183,6 +184,14 @@ function connectNodeToNetwork(userName){
             //window.open("./whatsup", "_blank");
             console.log(data.user.content.whatsapp);
         });
+        if(data.user.index[0]>-1){
+
+        }
+        else{
+            setTimeout(function(){
+              window.location.replace("./login");
+            }, 2000);
+        }
       }
     });
 }

@@ -25,7 +25,7 @@ if (cluster.isMaster) {
 
 // Code to run if we're in a worker process
 }
-else {*/
+else {/**/
 
   // author(s):  Patrice-Morgan Ongoly
   // version: 0.3.0
@@ -147,17 +147,17 @@ var result;
   var profiles = {
     "guest" : {
       index: [-1, "login"],
-      name: "Patrice-Morgan Ongoly",
-      profilepic: "pamo_profile.jpeg",
+      name: "FOR MEMBERS EYES ONLY",
+      profilepic: "hov_ig_logo.png",
       content: {
-        youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
-        linkedin: "https://www.linkedin.com/in/patrice-morgan-ongoly-8841b318a/",
-        instagram: "https://www.instagram.com/ceo.hov/",
+        youtube : "https://www.youtube.com",
+        linkedin: "https://www.linkedin.com",
+        instagram: "https://www.instagram.com",
         whatsapp: "+1 617 855 9966"
       },
-      replyto: "ceo@houseofven.us",
-      profilename: "",
-      profilepass: ""
+      replyto: "admin@houseofven.us",
+      profilename: "guest",
+      profilepass: "guest"
     },
     "ceo" : {
       index: [0, "ceo"],
@@ -399,6 +399,7 @@ var result;
               console.log("found it!");
               let choice = source[loc];
               console.log(loc);
+              choice.timeStart = (new Date).getTime();
               console.log(choice);
 
               if(numOfSigns==0){
@@ -408,11 +409,16 @@ var result;
                     engine: result.engine.toString(),
                     os: result.os.toString(),
                     isMobile: result.isMobile(),
-                    history: []
+                    history: ["logged", "login","loggedin"],
+                    user: choice
                   };
                   signatures[result.toString()] = signature;
+
+                  profiles[Object.keys(profiles)[loc]].loggedIn = true;
+
                   console.log(`signature:`);
                   console.log(signature);
+                  socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: choice});
               }
               else{
                   let total = Object.values(signatures);
@@ -433,18 +439,20 @@ var result;
                   // ... otherwise create a new signature
                   if(localHistory==null||alreadyConnectedToThis==false){
                       let signature = {
-                      object: address,
-                      total: result.toString(),
-                      browser: result.browser.toString(),
-                      engine: result.engine.toString(),
-                      os: result.os.toString(),
-                      isMobile: result.isMobile(),
-                      history: [],
-                      user: profiles["user"]
-                    };
+                        object: address,
+                        total: result.toString(),
+                        browser: result.browser.toString(),
+                        engine: result.engine.toString(),
+                        os: result.os.toString(),
+                        isMobile: result.isMobile(),
+                        history: [],
+                        user: profiles["user"]
+                      };
                       signatures[result.toString()] = signature;
                   }
-                  console.log(choice);
+
+                  profiles[Object.keys(profiles)[loc]].loggedIn = true;
+
                   signatures[result.toString()].history.push("loggedin");
                   signatures[result.toString()].user = choice;
                   localHistory = signatures[result.toString()].history;
@@ -464,8 +472,13 @@ var result;
       socket.on("CLIENTrequestUserProfileFromSERVER", function(data){
           if(data.status){
               console.log(`requesting profile for ${data.name}...`);
-              console.log(profiles[data.name]);
-              socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: profiles[data.name]});
+              if(profiles[data.name].loggedIn == true){
+                console.log(profiles[data.name]);
+                socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: profiles[data.name]});
+              }
+              else{
+                socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: profiles["guest"]});
+              }
           }
       });
 

@@ -169,7 +169,7 @@ function connectNodeToNetwork(userName){
 
         setTimeout(function(){
           window.location.replace(`./${target}`);
-        }, 2000);
+        }, 500);
       }
     });
 
