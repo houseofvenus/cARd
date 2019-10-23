@@ -240,7 +240,7 @@ var result;
       },
       replyto: "dagne.noah@gmail.com",
       profilename: "dagne.noah",
-      profilepass: "p@ssw0rD",
+      profilepass: "t3$tp@$$w0RD",
       loggedIn: false,
       timeStart: null
     },
@@ -256,10 +256,26 @@ var result;
       },
       replyto: "chylton@gmail.com",
       profilename: "chylton",
-      profilepass: "p@ssw0rD",
+      profilepass: "t3$tp@$$w0RD",
       loggedIn: false,
       timeStart: null
-    }
+    },
+    "louis" : {
+      index: [5, "louis"],
+      name: "Louis Banzani",
+      profilepic: "cam_profile.jpg",
+      content: {
+        youtube : "https://www.youtube.com/",
+        linkedin: "https://www.linkedin.com/",
+        instagram: "https://www.instagram.com/",
+        whatsapp: "+1 617 855 9966"
+      },
+      replyto: "Lbanzani35@gmail.com",
+      profilename: "lbanzani",
+      profilepass: "t3$tp@$$w0RD",
+      loggedIn: false,
+      timeStart: null
+    },
   };
   var signatures = {};
 
@@ -481,6 +497,9 @@ var checkSignatures = setInterval(function(){
 
                   if(data.content=="augr"&&(localHistory.lastIndexOf("loggedin")>localHistory.lastIndexOf("loggedout"))){
                     socket.emit("SERVERsendAugRProfileToUserOnCLIENT", {status: true, user: signatures[result.toString()].user});
+                  }
+                  else if((data.content=="augr")&&(localHistory.lastIndexOf("loggedin")<0||localHistory.lastIndexOf("loggedin")<localHistory.lastIndexOf("loggedout"))){
+                    socket.emit("SERVERsendAugRProfileToUserOnCLIENT", {status: true, user: profiles["guest"]});
                   }
 
               }

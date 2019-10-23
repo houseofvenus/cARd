@@ -150,3 +150,35 @@ function connectToRFID(socket, object){
 function opencARd(code){
     showLinkStatusDisplay(code);
 }
+
+var sessionManager = {
+    connection: io.connect(location.host),
+    network: "pARk"
+};
+
+function init(){
+  sessionManager.connection.emit("CLIENTidentifyNodeAsViewerToSERVER", {status: true, content: "augr"});
+
+  sessionManager.connection.on("SERVERsendAugRProfileToUserOnCLIENT", function(data){
+    if(data.status){
+      console.log(data.user);
+      if(data.user.index[0]<0){
+        setTimeout(function(){
+          window.location.replace("./login");
+        }, 4000);
+      }
+    }
+  });
+
+  setTimeout(function(){
+      var viewerTracker = [
+          document.getElementById("webcam-0-container"),
+      ];
+  }, 250);
+
+  setTimeout(function(){
+      document.getElementById("connect-to-rfid-menu-button").addEventListener("click", function(){
+          connectToRFID(sessionManager.connection, sessionManager.network);
+      });
+  }, 500);
+}
