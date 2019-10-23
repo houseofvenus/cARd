@@ -2,7 +2,7 @@ Object// Include the cluster module
 var cluster = require('cluster');
 
 // Code to run if we're in the master process
-/**/
+/*
 
 if (cluster.isMaster) {
 
@@ -95,6 +95,13 @@ var result;
       result = new WhichBrowser(req.headers);
       console.log(result.toString());
       res.render('login.html',{root: dir[0]});
+  });
+
+  app.get('/augr', function(req, res){
+      console.log("------------------------- \n accessing AugR");
+      result = new WhichBrowser(req.headers);
+      console.log(result.toString());
+      res.render('augr.html',{root: dir[0]});
   });
 
   app.get('/ceo', function(req, res){
@@ -472,6 +479,10 @@ var checkSignatures = setInterval(function(){
                     socket.emit("SERVERsendProfileToUserOnCLIENT", {status: true, user: signatures[result.toString()].user});
                   }
 
+                  if(data.content=="augr"&&(localHistory.lastIndexOf("loggedin")>localHistory.lastIndexOf("loggedout"))){
+                    socket.emit("SERVERsendAugRProfileToUserOnCLIENT", {status: true, user: signatures[result.toString()].user});
+                  }
+
               }
 
 
@@ -592,5 +603,5 @@ var checkSignatures = setInterval(function(){
       });
   });
 
-}
+/*}
 /**/

@@ -45,7 +45,7 @@ var Experience = {
         },
       {
           name: "profile-photo",
-          type: "container",
+          type: "button-container",
           class: "image-container",
           id: function(){
               let self = this;
@@ -1745,6 +1745,54 @@ var Experience = {
             return el;
         }
       },
+      {
+        name: "launch-augr",
+        type: "button-container",
+        class: "button-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "launch AugR";
+        },
+        index: 70,
+        children: [],
+        parent: [
+          1
+        ],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            return el;
+        }
+      },
+      {
+        name: "close-launcher",
+        type: "button-container",
+        class: "button-container",
+        id: function(){
+            let self = this;
+            return ""+self.name+"-"+self.class;
+        },
+        content: function(){
+            return "close";
+        },
+        index: 71,
+        children: [],
+        parent: [
+          1
+        ],
+        element: function(){
+            let self = this;
+            let el = document.createElement("div");
+            el.setAttribute("id", self.id());
+            el.classList.add(self.class);
+            return el;
+        }
+      },
     ],
     subjectobject: [],
     effector: [
@@ -1843,6 +1891,7 @@ var Experience = {
                 }
               },
               toggleAugRSettingsContainer: function(){
+                let self = this;
                 if(self.augrSettingsContainerVisible){
                   document.getElementById("augr-settings-page-container").style.height = 0;
                   document.getElementById("augr-settings-page-container").style.opacity = 0;
@@ -1861,6 +1910,7 @@ var Experience = {
                 }
               },
               toggleWorldStreamVisibility: function(){
+                let self = this;
                 if(self.oldRowStreamContainerVisible){
                   document.getElementById("old-row-world-stream-container").style.height = 0;
                   document.getElementById("old-row-world-stream-container").style.opacity = 0;
@@ -1876,6 +1926,28 @@ var Experience = {
                     document.getElementById("old-row-world-stream-container").style.opacity = 1.0;
                   }, 100);
                   self.oldRowStreamContainerVisible = true;
+                }
+              },
+              AugRLauncherVisible: false,
+              toggleAugRLauncher: function(){
+                let self = this;
+                if(self.AugRLauncherVisible){
+                  document.getElementById("launch-augr-button-container").style.opacity = 0;
+                  document.getElementById("close-launcher-button-container").style.opacity = 0;
+                  setTimeout(function(){
+                    document.getElementById("launch-augr-button-container").style.display = "none";
+                    document.getElementById("close-launcher-button-container").style.display = "none";
+                  }, 500);
+                  self.AugRLauncherVisible = false;
+                }
+                else{
+                  document.getElementById("launch-augr-button-container").style.display = "block";
+                  document.getElementById("close-launcher-button-container").style.display = "block";
+                  setTimeout(function(){
+                    document.getElementById("launch-augr-button-container").style.opacity = 1.0;
+                    document.getElementById("close-launcher-button-container").style.opacity = 1.0;
+                  }, 50);
+                  self.AugRLauncherVisible = true;
                 }
               }
           },
@@ -1913,6 +1985,16 @@ var Experience = {
                   break;
                   case "link-to-hov-portal-button-container":
                       window.open("http://houseofven.us","_blank");
+                  break;
+
+                  case "launch-augr-button-container":
+                    setTimeout(function(){
+                      window.location.assign("./augr");
+                    }, 1000);
+                  break;
+                  //case "close-launcher-button-container":
+                  case "profile-photo-image-container":
+                      self.accessibility.toggleAugRLauncher();
                   break;
                   default:
                       console.log("no specific functionality defined for this target.");

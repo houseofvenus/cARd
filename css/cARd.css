@@ -27,6 +27,37 @@
   background-color: black;
   color: white;
   margin: 0 auto 5% auto;
+  cursor: pointer;
+  transition: border 0.25s, opacity 0.25s;
+}
+
+#launch-augr-button-container{
+  display: none;
+  opacity: 0;
+  border-radius: 50% 50% 0 0;
+  height: 50%;
+  width: 100%;
+  background-color: red;
+  color: white;
+  text-align: center;
+  line-height: 100px;
+}
+
+#close-launcher-button-container{
+  display: none;
+  opacity: 0;
+  border-radius: 0 0 50% 50%;
+  height: 50%;
+  width: 100%;
+  background-color: aquamarine;
+  color: white;
+  text-align: center;
+  line-height: 100px;
+}
+
+#profile-photo-image-container:hover{
+  border: 3px aquamarine solid;
+  opacity: 0.8;
 }
 
 .portal-button-container{
@@ -427,7 +458,7 @@
     width: 450px;
     padding: 5%;
     left: 50%;
-    margin-left: -250px;
+    margin-left: -270px;
   /*  height: 350px;
     margin: 0 auto;*/
   }
