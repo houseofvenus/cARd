@@ -1,3 +1,3 @@
 document.addEventListener("DOMContentLoaded", function(){
-    init("eric");
+    init("louis");
 });

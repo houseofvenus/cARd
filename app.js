@@ -118,6 +118,13 @@ var result;
       res.render('guedalia.html',{root: dir[0]});
   });
 
+  app.get('/louis', function(req, res){
+      console.log("------------------------- \n accessing louis page");
+      result = new WhichBrowser(req.headers);
+      console.log(result.toString());
+      res.render('louis.html',{root: dir[0]});
+  });
+
   app.get('/eric', function(req, res){
       console.log("------------------------- \n accessing eric page");
       result = new WhichBrowser(req.headers);
@@ -201,10 +208,10 @@ var result;
       name: "Guedalia Dina-Lenda",
       profilepic: "gue_profile.png",
       content: {
-        youtube : "https://www.youtube.com/channel/UCGbhZq-wHMPHgg-Zdt9hfWw",
+        youtube : "https://www.youtube.com/",
         linkedin: "https://www.linkedin.com/",
-        instagram: "https://www.instagram.com/",
-        whatsapp: "+1 617 855 9966"
+        instagram: "https://www.instagram.com/roger_dina",
+        whatsapp: "+242 06 531 7575"
       },
       replyto: "gue.acornparkmd@gmail.com",
       profilename: "LaD17",
@@ -218,9 +225,9 @@ var result;
       profilepic: "eric_profile.png",
       content: {
         youtube : "https://www.youtube.com/",
-        linkedin: "https://www.linkedin.com/",
-        instagram: "https://www.instagram.com/",
-        whatsapp: "+1 617 855 9966"
+        linkedin: "https://www.linkedin.com/in/eric-romano-b03453109",
+        instagram: "https://www.instagram.com/ericalan_1228",
+        whatsapp: "+1 516 732 8551"
       },
       replyto: "ericrom1228@gmail.com",
       profilename: "eromano1",
@@ -234,9 +241,9 @@ var result;
       profilepic: "noah_profile.png",
       content: {
         youtube : "https://www.youtube.com/",
-        linkedin: "https://www.linkedin.com/",
-        instagram: "https://www.instagram.com/",
-        whatsapp: "+1 617 855 9966"
+        linkedin: "https://www.linkedin.com/in/noah-dagne",
+        instagram: "https://www.instagram.com/samiy.dagne",
+        whatsapp: "+1 301 281 3066"
       },
       replyto: "dagne.noah@gmail.com",
       profilename: "dagne.noah",
@@ -250,9 +257,9 @@ var result;
       profilepic: "cam_profile.jpg",
       content: {
         youtube : "https://www.youtube.com/",
-        linkedin: "https://www.linkedin.com/",
-        instagram: "https://www.instagram.com/",
-        whatsapp: "+1 617 855 9966"
+        linkedin: "https://www.linkedin.com/in/cameronhreed/",
+        instagram: "https://www.instagram.com/reed.cameron",
+        whatsapp: "+1 301 875 1938"
       },
       replyto: "chylton@gmail.com",
       profilename: "chylton",
@@ -263,16 +270,16 @@ var result;
     "louis" : {
       index: [5, "louis"],
       name: "Louis Banzani",
-      profilepic: "cam_profile.jpg",
+      profilepic: "louis_profile.png",
       content: {
         youtube : "https://www.youtube.com/",
         linkedin: "https://www.linkedin.com/",
-        instagram: "https://www.instagram.com/",
-        whatsapp: "+1 617 855 9966"
+        instagram: "https://www.instagram.com/banzanilouis",
+        whatsapp: "+242 05 382 9114"
       },
       replyto: "Lbanzani35@gmail.com",
       profilename: "lbanzani",
-      profilepass: "t3$tp@$$w0RD",
+      profilepass: "l3g@rd!3ndufl3uvE",
       loggedIn: false,
       timeStart: null
     },

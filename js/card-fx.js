@@ -166,7 +166,14 @@ function connectNodeToNetwork(userName){
         console.log(data.user);
 
         document.getElementById("profile-photo-image-container").style.backgroundImage = `url("http://row-img-server-houseofven.us-east-1.elasticbeanstalk.com/${data.user.profilepic}")`;
-        document.getElementById("profile-photo-image-container").style.backgroundSize = "100% 100%";
+
+        if(data.user.index[1]=="louis"){
+            document.getElementById("profile-photo-image-container").style.backgroundSize = "150% 275%";
+            document.getElementById("profile-photo-image-container").style.backgroundPosition = "50% 40%";
+        }
+        else{
+          document.getElementById("profile-photo-image-container").style.backgroundSize = "100% 100%";
+        }
 
         document.getElementById(`youtube-portal-button-container`).addEventListener("click", function(){
             window.open(data.user.content.youtube, "_blank");
