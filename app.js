@@ -188,7 +188,7 @@ var result;
       timeStart: null
     },
     "ceo" : {
-      index: [0, "ceo"],
+     index: [0, "ceo"],
       name: "Patrice-Morgan Ongoly",
       profilepic: "pamo_profile.jpeg",
       content: {
